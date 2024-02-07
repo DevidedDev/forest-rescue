@@ -34,7 +34,16 @@ void Keyboard:: getKey(SDL_Event& event){
 }
 
 void Mouse::getBtn(SDL_Event& event){
-
+    switch(event.button.button){
+        case SDL_BUTTON_LEFT:
+            cout << "L-mouse-btn pressed"<< endl;
+            break;
+        case SDL_BUTTON_RIGHT:
+            cout << "R-mouse-btn pressed" << endl;
+            break;
+        default:
+            break;
+    } 
 
 }
 
@@ -45,12 +54,17 @@ void Input::getInput(bool& p_gameRunning){
         case SDL_QUIT:
             p_gameRunning = false;
             break;
+
+        case SDL_MOUSEBUTTONDOWN:
+            mouse.getBtn(event);
+            break;
         
         case SDL_KEYDOWN:
             keyboard.getKey(event);
+            break;
         
-        case SDL_MOUSEBUTTONDOWN:
-            mouse.getBtn(event);
+        
+
         default:
             break;
         
