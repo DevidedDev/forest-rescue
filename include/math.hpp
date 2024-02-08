@@ -7,22 +7,27 @@
 
 using namespace std;
 
+
+class Axes{
+private:
+    float value;
+    
+public:
+    Axes();
+    Axes(float p_val);
+    
+    float operator*(float p_multiplier);
+    void operator++();
+    void operator--();
+    
+};
+
 struct Vector2f
 {
-    Vector2f()
-    :x(0.0f), y(0.0f)
-    {}
-    
-    Vector2f(float p_x, float p_y)
-    :x(p_x), y(p_y)
-    {}
-
-    void print(){
-        cout << x << " : "<<y << endl;
-    }
-
-    float x, y;
-
-
+    Axes x;
+    Axes y;
+    Vector2f();
+    Vector2f(float p_x, float p_y);
 
 };
+

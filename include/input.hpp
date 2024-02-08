@@ -2,13 +2,15 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 
+#include "player.hpp"
+
 
 class Keyboard{
     private:
     bool KEYS[322];
     public:
     Keyboard();
-    void getKey(SDL_Event& event);
+    void getKey(SDL_Event& event, Player& p_player);
     
 
 };
@@ -16,7 +18,7 @@ class Keyboard{
 class Mouse{
 private:
 public:
-    void getBtn(SDL_Event& event);
+    void getBtn(SDL_Event& event, Player& p_player);
 };
 
 class Input{
@@ -25,5 +27,5 @@ private:
     Keyboard keyboard;
     Mouse mouse;
 public:
-    void getInput(bool& p_gameRunning);
+    void getInput(bool& p_gameRunning, Player& p_player);
 };
