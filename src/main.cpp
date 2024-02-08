@@ -33,11 +33,16 @@ int main(int argc, char *args[]){
     //ENTITIES
     int n= 20;
     int m =20;
-    vector <Entity> tiles;
+    vector <vector <Entity> > tiles;
+
     Player player(Vector2f(0, 0), textures.player);
 
-    for(int i = 0; i < n; i++){
-        tiles.push_back(Entity(Vector2f(i*16, 0), textures.grass));
+     for(int i = 0; i < n; i++){
+        vector<Entity> innerVec;
+        for(int j = 0; j < m; j++){
+            innerVec.push_back(Entity(Vector2f(i*16,j*16),textures.grass, rand()%5));
+        }
+        tiles.push_back(innerVec);
     }
    
     
@@ -76,14 +81,13 @@ int main(int argc, char *args[]){
         
         window.clear();
         //če ne dodaš "&" bo  ustvaril kopijo, maesto uporabljal original
-        // for(int i = 0; i < n; i++){
-        // for (int j = m; j < m; j++){
-        //     window.render(grassTiles[i][j]);
-        // }
-        //    }
-        for(int i = 0; i < n; i++){
-            window.render(tiles.at(i));
-        }   
+        
+        for(int i = 0;  i < n; i++){
+            vector<Entity>* innerVec = &tiles.at(i);
+            for(int j = 0; j < m; j++){
+                window.render(*(&(innerVec->at(j))));
+            }
+        }
         
         window.render(player);
           

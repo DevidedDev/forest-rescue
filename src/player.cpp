@@ -7,7 +7,7 @@
 
 
 Player::Player(Vector2f p_pos, SDL_Texture* p_tex)
-    :Entity(p_pos, p_tex)
+    :Entity(p_pos, p_tex, 0)
     {
         max_water = 100.0f;
         cur_water = 100.0f;

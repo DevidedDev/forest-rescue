@@ -4,14 +4,16 @@
 #include "../include/entity.hpp"
 #include "../include/math.hpp"
 
-Entity::Entity(Vector2f p_pos, SDL_Texture* p_tex)
+Entity::Entity(Vector2f p_pos, SDL_Texture* p_tex, int p_frame)
 :pos(p_pos), tex(p_tex)
-{
-    currentFrame.x = 0;
+{   
+    int scaler = 16;
+    currentFrame.x = p_frame * scaler;
     currentFrame.y = 0;
     currentFrame.w = 16;
     currentFrame.h = 16;
 }
+
 
 
 SDL_Rect Entity::getCurrentFrame(){
@@ -22,3 +24,8 @@ SDL_Texture* Entity::getTex(){
     return tex;
 }
 
+
+void Entity::changeFrame(int p_frame){
+    currentFrame.x = p_frame*scaler;
+
+}
