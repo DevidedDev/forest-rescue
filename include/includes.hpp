@@ -1,4 +1,5 @@
 #pragma once
+
 #include "entity.hpp"
 #include "input.hpp"
 #include "math.hpp"
@@ -7,4 +8,3 @@
 #include "textures.hpp"
 #include "tile_component.hpp"
 #include "utils.hpp"
-#include "being.hpp"

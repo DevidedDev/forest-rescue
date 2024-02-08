@@ -4,8 +4,8 @@
 #include <map>
 #include <iostream>
 
-#include "being.hpp"
 #include "entity.hpp"
+#include "math.hpp"
 
 class Player: public Entity
 {

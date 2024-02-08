@@ -1,7 +1,6 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 
-#include "../include/player.hpp"
 #include "../include/input.hpp"
 
 
