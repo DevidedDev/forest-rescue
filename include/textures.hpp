@@ -1,7 +1,7 @@
 #pragma once
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
-#include "../include/render_window.hpp"
+#include "render_window.hpp"
 
 struct Textures{
     SDL_Texture* player;

@@ -1,8 +1,6 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
-#include <iostream>
 
-#include "../include/includes.hpp"
 #include "../include/player.hpp"
 #include "../include/input.hpp"
 
@@ -80,14 +78,9 @@ void Input::getInput(bool& p_gameRunning, Player& p_player){
         case SDL_KEYDOWN:
             keyboard.getKey(event, p_player);
             break;
-        
-        
 
         default:
             break;
-        
-
         }
-        
     }
 }

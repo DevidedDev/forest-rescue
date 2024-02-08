@@ -6,9 +6,9 @@
  
 
 class Keyboard{
-    private:
+private:
     bool KEYS[322];
-    public:
+public:
     Keyboard();
     void getKey(SDL_Event& event, Player& p_player);
     
