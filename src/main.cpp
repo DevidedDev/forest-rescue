@@ -7,6 +7,8 @@
 #include "../include/entity.hpp"
 #include "../include/utils.hpp"
 #include "../include/input.hpp"
+#include "../include/textures.hpp"
+#include "../include/player.hpp"
 
 using namespace std;
 
@@ -23,17 +25,24 @@ int main(int argc, char *args[]){
 
     RenderWindow window("Game", 1200, 700);
 
-    //Writes out refresh rate
     //cout << window.getRefreshRate() << endl;
 
-    SDL_Texture* grassTexture = window.loadTexture("../res/gfx/grass_texture.jpg");
-    
-    vector<Entity> entities;
-   
-    for(int i = 0; i < 12; i++){
-        entities.push_back(Entity(Vector2f(i*30,150),grassTexture));
-    }
+    //TEXTURES
+    Textures textures(window);
 
+    //ENTITIES
+    int n= 20;
+    int m =20;
+    vector <Entity> tiles;
+    Player player(Vector2f(0, 0), textures.player);
+
+    for(int i = 0; i < n; i++){
+        tiles.push_back(Entity(Vector2f(i*16, 0), textures.grass));
+    }
+   
+    
+    
+    
 
     bool gameRunning = true;
 
@@ -57,7 +66,7 @@ int main(int argc, char *args[]){
 
         while(accumulator >= timeStep){
             //Get controls and events
-            input.getInput(gameRunning);
+            input.getInput(gameRunning, player);
             
             accumulator -= timeStep;
 
@@ -67,9 +76,16 @@ int main(int argc, char *args[]){
         
         window.clear();
         //če ne dodaš "&" bo  ustvaril kopijo, maesto uporabljal original
-        for(Entity& ent : entities){
-            window.render(ent);
-        }
+        // for(int i = 0; i < n; i++){
+        // for (int j = m; j < m; j++){
+        //     window.render(grassTiles[i][j]);
+        // }
+        //    }
+        for(int i = 0; i < n; i++){
+            window.render(tiles.at(i));
+        }   
+        
+        window.render(player);
           
         
         window.display();

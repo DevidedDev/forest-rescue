@@ -9,13 +9,9 @@ Entity::Entity(Vector2f p_pos, SDL_Texture* p_tex)
 {
     currentFrame.x = 0;
     currentFrame.y = 0;
-    currentFrame.w = 30;
-    currentFrame.h = 30;
-   
-
+    currentFrame.w = 16;
+    currentFrame.h = 16;
 }
-
-
 
 
 SDL_Rect Entity::getCurrentFrame(){
