@@ -5,13 +5,14 @@
 #include "../include/math.hpp"
 
 Entity::Entity(Vector2f p_pos, SDL_Texture* p_tex, int p_frame)
-:pos(p_pos), tex(p_tex)
+:pos(p_pos), dest_pos(pos), tex(p_tex)
+//starting position = actual position
 {   
-    int scaler = 16;
-    currentFrame.x = p_frame * scaler;
+    int tile_size = 16;
+    currentFrame.x = p_frame * 16;
     currentFrame.y = 0;
-    currentFrame.w = 16;
-    currentFrame.h = 16;
+    currentFrame.w = tile_size;
+    currentFrame.h = tile_size;
 }
 
 
@@ -26,6 +27,6 @@ SDL_Texture* Entity::getTex(){
 
 
 void Entity::changeFrame(int p_frame){
-    currentFrame.x = p_frame*scaler;
+    currentFrame.x = p_frame * tile_size;
 
 }

@@ -3,11 +3,7 @@
 #include <iostream>
 #include <vector>
 
-#include "../include/render_window.hpp" // hpp files just copy pastes files data, where the include tag is
-#include "../include/entity.hpp"
-#include "../include/utils.hpp"
-#include "../include/input.hpp"
-#include "../include/textures.hpp"
+#include "../include/includes.hpp"
 #include "../include/player.hpp"
 
 using namespace std;
@@ -51,7 +47,8 @@ int main(int argc, char *args[]){
 
     bool gameRunning = true;
 
-    
+    SDL_Rect camera = {0,0,50,50};
+
     Input input;
 
     const float timeStep = 0.01f;
@@ -82,6 +79,20 @@ int main(int argc, char *args[]){
         window.clear();
         //če ne dodaš "&" bo  ustvaril kopijo, maesto uporabljal original
         
+        //CAMERA
+        camera.x = player.getPos().x - (1280/2); //screen size
+        camera.y = player.getPos().y - (720/2);
+        if(camera.x < 0){
+            camera.x = 0;
+        }
+        if(camera.y = 0){
+            camera.y = 0;
+        }
+        if(camera.x > camera.w )
+            camera.x = camera.w;
+        if(camera.y > camera.h)
+            camera.y = camera.h;
+
         for(int i = 0;  i < n; i++){
             vector<Entity>* innerVec = &tiles.at(i);
             for(int j = 0; j < m; j++){

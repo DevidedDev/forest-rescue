@@ -9,7 +9,6 @@ struct Textures{
     SDL_Texture* tribesmen;
 
     SDL_Texture* grass;
-
     SDL_Texture* water;
     Textures(RenderWindow& p_window);
 

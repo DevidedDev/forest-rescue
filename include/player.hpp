@@ -3,22 +3,23 @@
 #include <SDL2/SDL_image.h>
 #include <map>
 #include <iostream>
-
+#include "being.hpp"
 #include "entity.hpp"
-#include "player.hpp"
 
 class Player: public Entity
 {
 
 private:
-//player textures
-    //std::map<string, SDL_Texture*> textures {};
     //water amount
     float max_water;
     float cur_water;
     //heatlh
     float max_hp;
     float cur_hp;
+
+    Vector2f velocity;
+    int speed;
+
     
 
 public:

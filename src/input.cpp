@@ -2,8 +2,9 @@
 #include <SDL2/SDL_image.h>
 #include <iostream>
 
-#include "../include/input.hpp"
+#include "../include/includes.hpp"
 #include "../include/player.hpp"
+#include "../include/input.hpp"
 
 
 using namespace std;
@@ -27,19 +28,19 @@ void Keyboard:: getKey(SDL_Event& event, Player& p_player){
 
 
             case SDLK_w: //up
-                p_player.getPos().y.operator--();
+                p_player.getPos().y--;
                 break;
                 
             case SDLK_s: // down
-                p_player.getPos().y.operator++();
+                p_player.getPos().y++;
                 break;
 
             case SDLK_a:
-                p_player.getPos().x.operator--();
+                p_player.getPos().x--;
                 break;
 
             case SDLK_d:
-                p_player.getPos().x.operator++();
+                p_player.getPos().x++;
                 break;
 
             default:

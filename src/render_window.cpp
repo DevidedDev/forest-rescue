@@ -59,16 +59,13 @@ void RenderWindow::clear(){ //počisti renderer
 
 void RenderWindow::render(Entity& p_ent){ //
     // NULL src  & texture fills whole screen
-    SDL_Rect src = p_ent.getCurrentFrame();  // SDL struktura
-    /*
-    src.x = 0;
-    src.y = 0;
-    src.w = 512;
-    src.h = 512;
-    */
-    
-    
 
+    // KATERA SLIKO ANIMACIJE HOČEM? (pogleda koordinate in velikosti znotraj png-ev)
+    SDL_Rect src = p_ent.getCurrentFrame();  
+    
+    
+    
+    //to kar se dejansko nariše
     SDL_Rect dest;
     dest.x = p_ent.getPos().x *4;
     dest.y = p_ent.getPos().y * 4;
