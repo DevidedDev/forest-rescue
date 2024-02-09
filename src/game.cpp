@@ -31,11 +31,7 @@ namespace game{
 void game::update(){
 
     player.update();
-    cout 
-    << "camer-w: " << camera.w 
-    << " "
-    << "cam-h :" << camera.h 
-    << endl;
+   
 
     //tile size is the same as the player pos
     camera.x = (player.getPos().x + TILE_SIZE/2)- WINDOW_WIDTH/(2*SCALER);
@@ -51,7 +47,6 @@ void game::update(){
    
 
     
-    //cout<< "X:"<<player.getPos().x << "Y:" << player.getPos().y <<endl;
     
 
     

@@ -12,6 +12,12 @@ Timer::Timer(){
     end = 0;
     elapsed = 0.0f;
     elapsedMs = 0.0f;
+    
+    //4 physics 
+    lastUpdate = SDL_GetTicks();
+    current = 0;
+
+    float deltaTime = 0;
 }
 
 void Timer::setStart(){
@@ -22,13 +28,31 @@ void Timer::setEnd(){
 end = SDL_GetPerformanceCounter();
 }
 
-void Timer::update(){
+float Timer::getFps(){
     elapsed = (end - start) / (float)SDL_GetPerformanceFrequency();
-    elapsedMs = (end - start) / (float)SDL_GetPerformanceFrequency();
-    std::cout << "Current FPS: " << std::to_string(1.0f / elapsed) << std::endl;
+    return elapsed;
 }
 
 void Timer::capFrames(){
+    elapsedMs = (end - start) / (float)SDL_GetPerformanceFrequency();
     SDL_Delay(floor(16.666f - elapsedMs));
 
+}
+
+//physics
+
+void Timer::setCurent(){
+    current = SDL_GetTicks();
+}
+
+void Timer::setLastUpdate(){
+    lastUpdate = current;
+}
+
+void Timer::setDT(){
+    deltaTime = (current - lastUpdate) / 1000.0f;
+}
+
+float Timer::getDT(){
+    return deltaTime;
 }

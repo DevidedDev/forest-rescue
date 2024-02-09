@@ -11,7 +11,7 @@ Player::Player(Vector2f p_pos, SDL_Texture* p_tex)
     :Entity(p_pos, p_tex, 0)
     {
         tile_size = 16;
-        speed = 2;
+        speed = 50;
         velocity.x = 0.0f;
         velocity.y = 0.0f;
         max_water = 100.0f;
@@ -37,18 +37,14 @@ void Player::update(){
     dest_pos.y = pos.y - game::camera.y;
     dest_pos.x = pos.x - game::camera.x;
     
-    cout << "GRID POS: " <<"X: " << pos.x/16 << "Y:" << pos.y/16 << endl;
-
-    cout << "X: " << pos.x << "Y:" << pos.y << endl;
-
-    cout <<"DEST POS: "<<"X: " << dest_pos.x << "Y:" << dest_pos.y << endl;
+   
     updatePos(); 
     updateFrame();
 }
 
 void Player::updatePos(){
-    pos.x += velocity.x *speed;
-    pos.y += velocity.y*speed;
+    pos.x += velocity.x * speed * game::timer.getDT();
+    pos.y += velocity.y * speed * game::timer.getDT();
     
 }
 

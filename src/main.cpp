@@ -44,20 +44,25 @@ int main(int argc, char *args[]){
     while(game::gameRunning){
         game::timer.setStart();
 
-
-
-        
         input.getInput();
-            
-            
-
     
         //time left in accumulator in %
-        
-        game::window.clear();
+        game::timer.setCurent();
+
+        game::timer.setDT();
+        //movement
         
         game::update();
 
+        //End frame timing
+        game::timer.setLastUpdate();
+        game::timer.setEnd();
+        
+
+
+        //RENDERING
+        game::window.clear();
+        
 
         for(int i = 0;  i < n; i++){
             vector<Entity>* innerVec = &tiles.at(i);
@@ -73,11 +78,10 @@ int main(int argc, char *args[]){
         
         game::window.display();
 
-        game::timer.setEnd();
-        game::timer.update();
+        
+
+        //delay
         game::timer.capFrames();
-
-
         
     }
 

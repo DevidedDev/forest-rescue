@@ -33,6 +33,6 @@ void Entity::updateFrame(int p_frame){
 
 void Entity::update(){
     dest_pos.x = pos.x - game::camera.x;
-    //cout << "Camera X" << game::camera.x << endl;
     dest_pos.y = pos.y - game::camera.y;
+    
 }

@@ -2,17 +2,33 @@
 
 class Timer{
 private:
-    int ticks;
+    //for frames
 
     int start;
     int end;
     float elapsed;
     float elapsedMs;
+
+    //for physics
+    int current;
+    int lastUpdate;
+
+    float deltaTime;
 public:
     Timer();
     void setStart();
     void setEnd();
-    void update();
+
+    float getFps();
+    
     void capFrames();
+
+    //for physics
+    void setCurent();
+    void setLastUpdate();
+
+    void setDT();
+    float getDT();
+    
 
 };
