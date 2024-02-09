@@ -4,10 +4,10 @@
 #include <map>
 #include <iostream>
 
-#include "entity.hpp"
+#include "being.hpp"
 #include "math.hpp"
 
-class Player: public Entity
+class Player: public Being
 {
 private:
     //water amount
@@ -18,15 +18,8 @@ private:
     float cur_hp;
 
     Vector2f velocity;
-    int speed;
     
 public:
     Player(Vector2f p_pos, SDL_Texture* p_tex);
-    void setVelocityX(int p_vel);
-    void setVelocityY(int p_vel);
-    Vector2f getVelocity();
-    void update();
-    void updateFrame();
-    void updatePos();
     };
 

@@ -64,8 +64,8 @@ void RenderWindow::render(Entity& p_ent){ //
 
     // KATERA SLIKO ANIMACIJE HOČEM? (pogleda koordinate in velikosti znotraj png-ev)
     SDL_Rect src = p_ent.getCurrentFrame();  
-    
-    
+    src.x = p_ent.getCurrentFrame().x*game::TILE_SIZE;
+    src.y = p_ent.getCurrentFrame().y*game::TILE_SIZE;
     
     //to kar se dejansko nariše
     SDL_Rect dest;

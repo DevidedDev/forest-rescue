@@ -25,6 +25,7 @@ public:
 
     //for physics
     void setCurent();
+    void setCurent(Timer& p_timer);
     void setLastUpdate();
 
     void setDT();

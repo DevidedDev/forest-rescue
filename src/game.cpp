@@ -11,6 +11,8 @@ namespace game{
 
     Timer timer;
 
+    float animatedFPS= 5.0f;
+
     bool gameRunning = true;
 
     Dimension lvlGrid(100,100);

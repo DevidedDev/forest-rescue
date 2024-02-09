@@ -16,6 +16,8 @@ namespace game{
 
     extern Timer timer;
 
+    extern float animatedFPS;
+
     extern Dimension lvlGrid;
     extern Dimension lvlDimension;
 

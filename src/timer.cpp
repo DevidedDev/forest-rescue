@@ -45,6 +45,10 @@ void Timer::setCurent(){
     current = SDL_GetTicks();
 }
 
+void Timer::setCurent(Timer& p_timer){
+    current = p_timer.current;
+}
+
 void Timer::setLastUpdate(){
     lastUpdate = current;
 }

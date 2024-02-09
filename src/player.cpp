@@ -8,61 +8,14 @@
 
 
 Player::Player(Vector2f p_pos, SDL_Texture* p_tex)
-    :Entity(p_pos, p_tex, 0)
+    :Being(p_pos, p_tex, 100.0f)
     {
-        tile_size = 16;
-        speed = 50;
-        velocity.x = 0.0f;
-        velocity.y = 0.0f;
+        tileSize = 16;
         max_water = 100.0f;
         cur_water = 100.0f;
         
-        max_hp = 100.0f;
-        cur_hp = 100.0f;
-    }
-
-void Player::setVelocityX(int p_vel){
-    velocity.x = p_vel;
-}
-
-void Player::setVelocityY(int p_vel){
-    velocity.y = p_vel;
-}
-
-Vector2f Player::getVelocity(){
-    return velocity;
-}
-
-void Player::update(){
-    dest_pos.y = pos.y - game::camera.y;
-    dest_pos.x = pos.x - game::camera.x;
-    
-   
-    updatePos(); 
-    updateFrame();
-}
-
-void Player::updatePos(){
-    pos.x += velocity.x * speed * game::timer.getDT();
-    pos.y += velocity.y * speed * game::timer.getDT();
-    
-}
-
-void Player::updateFrame(){
-    if(velocity.x == 0){
-        Entity::updateFrame(0);
         
-    }else if(velocity.x > 0){
-        Entity::updateFrame(8);
+    }
 
-    }else if(velocity.x < 0){
-        Entity::updateFrame(10);
-    }
-    
-    if(velocity.y > 0){
-        Entity::updateFrame(3);
-    }else if(velocity.y < 0){
-        Entity::updateFrame(5);
-    }
-    
-}
+
+

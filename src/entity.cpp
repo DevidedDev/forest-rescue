@@ -10,7 +10,7 @@ Entity::Entity(Vector2f p_pos, SDL_Texture* p_tex, int p_frame)
 //starting position = actual position
 {   
     int tile_size = 16;
-    currentFrame.x = p_frame * 16;
+    currentFrame.x = p_frame;
     currentFrame.y = 0;
     currentFrame.w = tile_size;
     currentFrame.h = tile_size;
@@ -28,11 +28,10 @@ SDL_Texture* Entity::getTex(){
 
 
 void Entity::updateFrame(int p_frame){
-    currentFrame.x = p_frame * tile_size;
+    currentFrame.x = p_frame * game::TILE_SIZE;
 }
 
 void Entity::update(){
     dest_pos.x = pos.x - game::camera.x;
     dest_pos.y = pos.y - game::camera.y;
-    
 }
