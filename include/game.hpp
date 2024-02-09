@@ -5,6 +5,7 @@
 #include "player.hpp"
 #include "textures.hpp"
 #include "math.hpp"
+#include "timer.hpp"
 
 
 namespace game{
@@ -12,6 +13,8 @@ namespace game{
     extern int WINDOW_HEIGHT;
     extern int WINDOW_WIDTH; 
     extern RenderWindow window; 
+
+    extern Timer timer;
 
     extern Dimension lvlGrid;
     extern Dimension lvlDimension;

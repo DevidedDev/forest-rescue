@@ -39,53 +39,25 @@ int main(int argc, char *args[]){
 
     Input input;
 
-    const float timeStep = 0.01f;
-    float accumulator = 0.0f;
-    float currentTime = utils::hireTimeInSecods();
 
 
     while(game::gameRunning){
-        int startTicks = SDL_GetTicks();
+        game::timer.setStart();
 
-        float newTime = utils::hireTimeInSecods();
-        float frameTime = newTime - currentTime;
 
-        currentTime = newTime;
 
-        accumulator += frameTime;
-
-        while(accumulator >= timeStep){
-            //Get controls and events
-            input.getInput();
+        
+        input.getInput();
             
-            accumulator -= timeStep;
+            
 
-        }
+    
         //time left in accumulator in %
-        const float alpha = accumulator / timeStep; 
         
         game::window.clear();
         
         game::update();
 
-        //CAMERA
-        /*
-        
-        
-        camera.x = game::player.getPos().x - (1280/2); //screen size
-        camera.y = game::player.getPos().y - (720/2);
-        if(camera.x < 0){
-            camera.x = 0;
-        }
-        if(camera.y = 0){
-            camera.y = 0;
-        }
-        if(camera.x > camera.w )
-            camera.x = camera.w;
-        if(camera.y > camera.h)
-            camera.y = camera.h;
-        */
-        
 
         for(int i = 0;  i < n; i++){
             vector<Entity>* innerVec = &tiles.at(i);
@@ -101,11 +73,12 @@ int main(int argc, char *args[]){
         
         game::window.display();
 
-        int frameTicks = SDL_GetTicks() - startTicks;
+        game::timer.setEnd();
+        game::timer.update();
+        game::timer.capFrames();
 
-        if( frameTicks < 1000 / game::window.getRefreshRate()){
-            SDL_Delay(1000 / game::window.getRefreshRate()- frameTicks);
-        }
+
+        
     }
 
     game::window.cleanUp();

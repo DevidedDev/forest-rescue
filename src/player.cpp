@@ -11,7 +11,7 @@ Player::Player(Vector2f p_pos, SDL_Texture* p_tex)
     :Entity(p_pos, p_tex, 0)
     {
         tile_size = 16;
-        speed = 16;
+        speed = 2;
         velocity.x = 0.0f;
         velocity.y = 0.0f;
         max_water = 100.0f;

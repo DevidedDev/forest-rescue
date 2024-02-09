@@ -9,6 +9,8 @@ namespace game{
     int WINDOW_WIDTH = 1200; 
     RenderWindow window("Game", WINDOW_WIDTH, WINDOW_HEIGHT); 
 
+    Timer timer;
+
     bool gameRunning = true;
 
     Dimension lvlGrid(100,100);
