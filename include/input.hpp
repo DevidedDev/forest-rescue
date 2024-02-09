@@ -10,7 +10,7 @@ private:
     bool KEYS[322];
 public:
     Keyboard();
-    void getKey(SDL_Event& event, Player& p_player);
+    void getKey(SDL_Event& event, bool key_down);
     
 
 };
@@ -18,7 +18,7 @@ public:
 class Mouse{
 private:
 public:
-    void getBtn(SDL_Event& event, Player& p_player);
+    void getBtn(SDL_Event& event);
 };
 
 class Input{
@@ -27,5 +27,6 @@ private:
     Keyboard keyboard;
     Mouse mouse;
 public:
-    void getInput(bool& p_gameRunning, Player& p_player);
+    void getInput();
 };
+   

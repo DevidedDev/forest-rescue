@@ -2,6 +2,7 @@
 #include <SDL2/SDL_image.h>
 
 #include "../include/input.hpp"
+#include "../include/game.hpp"
 
 
 using namespace std;
@@ -17,7 +18,7 @@ Keyboard::Keyboard(){
     
 }
 
-void Keyboard:: getKey(SDL_Event& event, Player& p_player){
+void Keyboard:: getKey(SDL_Event& event,  bool key_down){
     //SDL_Keysym sym = event.key.keysym.sym;
     
     
@@ -25,19 +26,20 @@ void Keyboard:: getKey(SDL_Event& event, Player& p_player){
 
 
             case SDLK_w: //up
-                p_player.getPos().y--;
+            
+                game::player.setVelocityY(- key_down);
                 break;
                 
             case SDLK_s: // down
-                p_player.getPos().y++;
+                game::player.setVelocityY(key_down);
                 break;
 
             case SDLK_a:
-                p_player.getPos().x--;
+                game::player.setVelocityX(- key_down);
                 break;
 
             case SDLK_d:
-                p_player.getPos().x++;
+                game::player.setVelocityX(key_down);
                 break;
 
             default:
@@ -48,7 +50,7 @@ void Keyboard:: getKey(SDL_Event& event, Player& p_player){
 
 }
 
-void Mouse::getBtn(SDL_Event& event, Player& p_player){
+void Mouse::getBtn(SDL_Event& event){
     switch(event.button.button){
         case SDL_BUTTON_LEFT:
             cout << "L-mouse-btn pressed"<< endl;
@@ -62,20 +64,24 @@ void Mouse::getBtn(SDL_Event& event, Player& p_player){
 
 }
 
-void Input::getInput(bool& p_gameRunning, Player& p_player){
+void Input::getInput(){
     while(SDL_PollEvent(&event)){
         switch (event.type)
         {
         case SDL_QUIT:
-            p_gameRunning = false;
+            game::gameRunning = false;
             break;
 
         case SDL_MOUSEBUTTONDOWN:
-            mouse.getBtn(event, p_player);
+            mouse.getBtn(event);
             break;
         
         case SDL_KEYDOWN:
-            keyboard.getKey(event, p_player);
+            keyboard.getKey(event,  1);
+            break;
+
+        case SDL_KEYUP:
+            keyboard.getKey(event,  0);
             break;
 
         default:

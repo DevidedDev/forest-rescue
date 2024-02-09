@@ -2,12 +2,15 @@
 #include <SDL2/SDL_image.h>
 #include <iostream>
 #include <vector>
+#include <time.h>
 
 #include "../include/includes.hpp"
 
 using namespace std;
 
 int main(int argc, char *args[]){
+    srand(time(0));
+
     if(SDL_Init(SDL_INIT_VIDEO)> 0)
     {
         cout << "SDL_Init Failed. SDL_ERROR" << SDL_GetError() << endl;
@@ -18,35 +21,21 @@ int main(int argc, char *args[]){
         cout << "IMG_Init Failed. Error:" << SDL_GetError() << endl;
     }
 
-    RenderWindow window("Game", 1200, 700);
-
-    //cout << window.getRefreshRate() << endl;
-
-    //TEXTURES
-    Textures textures(window);
 
     //ENTITIES
-    int n= 20;
-    int m =20;
+    int n= game::lvlGrid.w;
+    int m = game::lvlGrid.h; 
     vector <vector <Entity> > tiles;
 
-    Player player(Vector2f(0, 0), textures.player);
 
      for(int i = 0; i < n; i++){
         vector<Entity> innerVec;
         for(int j = 0; j < m; j++){
-            innerVec.push_back(Entity(Vector2f(i*16,j*16),textures.grass, rand()%5));
+            innerVec.push_back(Entity(Vector2f(i*16,j*16),game::textures.grass, rand()%5));
         }
         tiles.push_back(innerVec);
     }
-   
     
-    
-    
-
-    bool gameRunning = true;
-
-    SDL_Rect camera = {0,0,50,50};
 
     Input input;
 
@@ -55,7 +44,7 @@ int main(int argc, char *args[]){
     float currentTime = utils::hireTimeInSecods();
 
 
-    while(gameRunning){
+    while(game::gameRunning){
         int startTicks = SDL_GetTicks();
 
         float newTime = utils::hireTimeInSecods();
@@ -67,7 +56,7 @@ int main(int argc, char *args[]){
 
         while(accumulator >= timeStep){
             //Get controls and events
-            input.getInput(gameRunning, player);
+            input.getInput();
             
             accumulator -= timeStep;
 
@@ -75,12 +64,16 @@ int main(int argc, char *args[]){
         //time left in accumulator in %
         const float alpha = accumulator / timeStep; 
         
-        window.clear();
-        //če ne dodaš "&" bo  ustvaril kopijo, maesto uporabljal original
+        game::window.clear();
         
+        game::update();
+
         //CAMERA
-        camera.x = player.getPos().x - (1280/2); //screen size
-        camera.y = player.getPos().y - (720/2);
+        /*
+        
+        
+        camera.x = game::player.getPos().x - (1280/2); //screen size
+        camera.y = game::player.getPos().y - (720/2);
         if(camera.x < 0){
             camera.x = 0;
         }
@@ -91,27 +84,31 @@ int main(int argc, char *args[]){
             camera.x = camera.w;
         if(camera.y > camera.h)
             camera.y = camera.h;
+        */
+        
 
         for(int i = 0;  i < n; i++){
             vector<Entity>* innerVec = &tiles.at(i);
             for(int j = 0; j < m; j++){
-                window.render(*(&(innerVec->at(j))));
+                (*(&(innerVec->at(j)))).update();
+                game::window.render(*(&(innerVec->at(j))));
+               
             }
         }
         
-        window.render(player);
+        game::window.render(game::player);
           
         
-        window.display();
+        game::window.display();
 
         int frameTicks = SDL_GetTicks() - startTicks;
 
-        if( frameTicks < 1000 / window.getRefreshRate()){
-            SDL_Delay(1000 / window.getRefreshRate()- frameTicks);
+        if( frameTicks < 1000 / game::window.getRefreshRate()){
+            SDL_Delay(1000 / game::window.getRefreshRate()- frameTicks);
         }
     }
 
-    window.cleanUp();
+    game::window.cleanUp();
     SDL_Quit();
 
     return 0;

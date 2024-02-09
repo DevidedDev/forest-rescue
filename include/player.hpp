@@ -22,6 +22,11 @@ private:
     
 public:
     Player(Vector2f p_pos, SDL_Texture* p_tex);
-    
-};
+    void setVelocityX(int p_vel);
+    void setVelocityY(int p_vel);
+    Vector2f getVelocity();
+    void update();
+    void updateFrame();
+    void updatePos();
+    };
 

@@ -18,4 +18,11 @@ Vector2f::Vector2f(){
 }
 
 
+Dimension::Dimension()
+:w(0), h(0)
+{}
+
+Dimension::Dimension(int p_w, int p_h)
+:w(p_w), h(p_h)
+{}
 

@@ -1,5 +1,6 @@
 #pragma once
 
+#include "game.hpp"
 #include "entity.hpp"
 #include "input.hpp"
 #include "math.hpp"

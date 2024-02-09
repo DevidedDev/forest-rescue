@@ -3,6 +3,7 @@
 
 #include "../include/entity.hpp"
 #include "../include/math.hpp"
+#include "../include/game.hpp"
 
 Entity::Entity(Vector2f p_pos, SDL_Texture* p_tex, int p_frame)
 :pos(p_pos), dest_pos(pos), tex(p_tex)
@@ -26,7 +27,12 @@ SDL_Texture* Entity::getTex(){
 }
 
 
-void Entity::changeFrame(int p_frame){
+void Entity::updateFrame(int p_frame){
     currentFrame.x = p_frame * tile_size;
+}
 
+void Entity::update(){
+    dest_pos.x = pos.x - game::camera.x;
+    //cout << "Camera X" << game::camera.x << endl;
+    dest_pos.y = pos.y - game::camera.y;
 }

@@ -19,4 +19,10 @@ struct Vector2f
     
 };
 
+struct Dimension{
+    int h,w;
+    Dimension();
+    Dimension(int p_w, int p_h);
+};
+
 

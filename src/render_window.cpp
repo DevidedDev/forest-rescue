@@ -4,6 +4,8 @@
 
 #include "../include/render_window.hpp"
 #include "../include/entity.hpp"
+#include "../include/game.hpp"
+
 
 using namespace std;
 
@@ -67,10 +69,10 @@ void RenderWindow::render(Entity& p_ent){ //
     
     //to kar se dejansko nariše
     SDL_Rect dest;
-    dest.x = p_ent.getPos().x *4;
-    dest.y = p_ent.getPos().y * 4;
-    dest.w = src.w * 4;
-    dest.h = src.h * 4;
+    dest.x = p_ent.getDestPos().x * game::SCALER;
+    dest.y = p_ent.getDestPos().y * game::SCALER;
+    dest.w = src.w * game::SCALER;
+    dest.h = src.h * game::SCALER;
     
 
     SDL_RenderCopy(renderer, p_ent.getTex(), &src, &dest);

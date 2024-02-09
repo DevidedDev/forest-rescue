@@ -4,7 +4,7 @@
 #include "math.hpp"
 
 class Entity{
-private:
+protected:
     int tile_size;
     Vector2f pos; //ACTUAL POSITION
     Vector2f dest_pos; //DISPLAYED POSITION
@@ -21,7 +21,10 @@ public:
     Vector2f& getPos(){
         return pos;
     };
-    void changeFrame(int p_frame);
-    
+    Vector2f& getDestPos(){
+        return dest_pos;
+    };
+    void updateFrame(int p_frame);
+    void update();
 
 };
