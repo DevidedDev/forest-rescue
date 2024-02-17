@@ -3,9 +3,18 @@
 #include <SDL2/SDL_image.h>
 #include "entity.hpp"
 
-class Tile_component: public Entity
+class TileComp
 {
-    public:
+private:
+    Entity tree;
+    Entity grass;
+public:
+   
+    TileComp(const Vector2f& p_pos);
+    TileComp();
     void update();
-
+    void render();
+    Entity* getTree();
+    Entity* getGrass();
+    
 };

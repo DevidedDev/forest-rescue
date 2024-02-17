@@ -10,6 +10,7 @@ struct Textures{
 
     SDL_Texture* grass;
     SDL_Texture* water;
+    SDL_Texture* trees;
     Textures(RenderWindow& p_window);
 
 };

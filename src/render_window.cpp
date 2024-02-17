@@ -7,7 +7,6 @@
 #include "../include/game.hpp"
 
 
-using namespace std;
 
 
 RenderWindow::RenderWindow(const char* p_title, int p_width, int p_heigth)
@@ -24,7 +23,7 @@ RenderWindow::RenderWindow(const char* p_title, int p_width, int p_heigth)
     
 
     if(window == NULL){
-        cout << "Window failed to init. ERROR:" << SDL_GetError() << endl;
+        std::cout << "Window failed to init. ERROR:" << SDL_GetError() << std::endl;
     }
     //creates renderer (window_to_render, use first ok graphics driver, use gpu if possible)
     renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED ); 
@@ -36,7 +35,7 @@ SDL_Texture* RenderWindow::loadTexture(const char* p_filePath){
     SDL_Texture* texture = NULL;
     texture = IMG_LoadTexture(renderer,     p_filePath);
     if (texture == NULL){
-        cout << "Failed to load texture. error:" << SDL_GetError() << endl;
+        std::cout << "Failed to load texture. error:" << SDL_GetError() << std::endl;
     }
     return texture;
 }
@@ -76,6 +75,24 @@ void RenderWindow::render(Entity& p_ent){ //
     
 
     SDL_RenderCopy(renderer, p_ent.getTex(), &src, &dest);
+}
+void RenderWindow::render(Entity* p_ent){ //
+    // NULL src  & texture fills whole screen
+
+    // KATERA SLIKO ANIMACIJE HOČEM? (pogleda koordinate in velikosti znotraj png-ev)
+    SDL_Rect src = (*p_ent).getCurrentFrame();  
+    src.x = (*p_ent).getCurrentFrame().x*game::TILE_SIZE;
+    src.y = (*p_ent).getCurrentFrame().y*game::TILE_SIZE;
+    
+    //to kar se dejansko nariše
+    SDL_Rect dest;
+    dest.x = (*p_ent).getDestPos().x * game::SCALER - game::camera.x;
+    dest.y = (*p_ent).getDestPos().y * game::SCALER - game::camera.y;
+    dest.w = src.w * game::SCALER;
+    dest.h = src.h * game::SCALER ;
+    
+
+    SDL_RenderCopy(renderer, (*p_ent).getTex(), &src, &dest);
 }
 
 void RenderWindow::display(){

@@ -13,8 +13,8 @@ protected:
     Timer timer;
     Vector2f velocity;
     int speed;
-    string direction;
-    string prevDirection;
+    std::string direction;
+    std::string prevDirection;
 
     float maxHp;
     float curHp;

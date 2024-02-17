@@ -79,7 +79,7 @@ void Being::updateFrame()
         }else if(direction=="DOWN"){
             currentFrame.x %= 2;
             currentFrame.y = 1;
-            cout << currentFrame.x << endl;
+            //cout << currentFrame.x << sendl;
         }else if(direction=="LEFT"){
             currentFrame.x %= 2;
             currentFrame.y = 4;

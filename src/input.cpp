@@ -5,7 +5,6 @@
 #include "../include/game.hpp"
 
 
-using namespace std;
 
 
 
@@ -43,7 +42,7 @@ void Keyboard:: getKey(SDL_Event& event,  bool key_down){
                 break;
 
             default:
-                cout << "Key pressed: " <<  SDL_GetKeyName(event.key.keysym.sym) << endl;
+                //std::cout << "Key pressed: " <<  SDL_GetKeyName(event.key.keysym.sym) << std::endl;
                 break;
         };
         
@@ -53,10 +52,10 @@ void Keyboard:: getKey(SDL_Event& event,  bool key_down){
 void Mouse::getBtn(SDL_Event& event){
     switch(event.button.button){
         case SDL_BUTTON_LEFT:
-            cout << "L-mouse-btn pressed"<< endl;
+            //std::cout << "L-mouse-btn pressed"<< std::endl;
             break;
         case SDL_BUTTON_RIGHT:
-            cout << "R-mouse-btn pressed" << endl;
+            //std::cout << "R-mouse-btn pressed" << std::endl;
             break;
         default:
             break;

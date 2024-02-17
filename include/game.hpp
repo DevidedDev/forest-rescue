@@ -6,33 +6,28 @@
 #include "textures.hpp"
 #include "math.hpp"
 #include "timer.hpp"
+#include "level.hpp"
+#include "../include/textures.hpp"
+
+class game{
+public:
+    static int WINDOW_HEIGHT;
+    static int WINDOW_WIDTH; 
+    static RenderWindow window;
+    static bool gameRunning;
+    static Timer timer;
+    static float animatedFPS;
+    static Dimension lvlGrid;
+    static Dimension lvlDimension;
+    static int TILE_SIZE;
+    static int SCALER;
+    static Textures textures;
+    static Player player;
+    static SDL_Rect camera;
+    static float difficulty;
+    static Level* level;
 
 
-namespace game{
+    static void update();
 
-    extern int WINDOW_HEIGHT;
-    extern int WINDOW_WIDTH; 
-    extern RenderWindow window; 
-
-    extern Timer timer;
-
-    extern float animatedFPS;
-
-    extern Dimension lvlGrid;
-    extern Dimension lvlDimension;
-
-    extern int TILE_SIZE;
-    extern int SCALER;
-
-    extern bool gameRunning;
-
-    //TEXTURES
-    extern Textures textures;
-
-    extern Player player;
-
-    extern SDL_Rect camera;
-
-    extern void update();
-
-}
+};

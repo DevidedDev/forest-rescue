@@ -18,7 +18,6 @@ class RenderWindow{
         void cleanUp();
         void clear();
         void render(Entity& p_ent); //pošlje po referenice
+        void render(Entity* p_ent);
         void display();
-
-
 };

@@ -1,5 +1,6 @@
 #include "../include/textures.hpp"
 #include "../include/render_window.hpp"
+#include "../include/game.hpp"
 
 
 Textures::Textures(RenderWindow& p_window){
@@ -7,5 +8,6 @@ Textures::Textures(RenderWindow& p_window){
     enemy = p_window.loadTexture("../res/gfx/enemy_texture.png");
     tribesmen  = p_window.loadTexture("../res/gfx/tribesmen_texture.png");
     grass = p_window.loadTexture("../res/gfx/grass_texture.png");
-    water = p_window.loadTexture("../res/gfx/water_texture.png");
+    water = p_window.loadTexture("../res/gfx/water_texture.png"); 
+    trees = p_window.loadTexture("../res/gfx/trees_texture.png");
 };

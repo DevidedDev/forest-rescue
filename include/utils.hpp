@@ -8,12 +8,12 @@ namespace utils
     
 
     inline void writeCamPos(){
-    cout << "PLAYER" << endl;
-    cout << "GRID POS: " <<"X: " << game::player.getPos().x/16 << "Y:" << game::player.getPos().y/16 << endl;
+    std::cout << "PLAYER" << std::endl;
+    std::cout << "GRID POS: " <<"X: " << game::player.getPos().x/16 << "Y:" << game::player.getPos().y/16 << std::endl;
 
-    cout << "X: " << game::player.getPos().x << "Y:" << game::player.getPos().y << endl;
+    std::cout << "X: " << game::player.getPos().x << "Y:" << game::player.getPos().y << std::endl;
 
-    cout <<"DEST POS: "<<"X: " << game::player.getDestPos().x << "Y:" << game::player.getDestPos().y << endl;
+    std::cout <<"DEST POS: "<<"X: " << game::player.getDestPos().x << "Y:" << game::player.getDestPos().y << std::endl;
     }
 
 };

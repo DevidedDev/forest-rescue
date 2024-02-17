@@ -6,40 +6,24 @@
 
 #include "../include/includes.hpp"
 
-using namespace std;
 
 int main(int argc, char *args[]){
+    delete game::level;
+    game::level = new Level();
     srand(time(0));
 
     if(SDL_Init(SDL_INIT_VIDEO)> 0)
     {
-        cout << "SDL_Init Failed. SDL_ERROR" << SDL_GetError() << endl;
+        std::cout << "SDL_Init Failed. SDL_ERROR" << SDL_GetError() << std::endl;
     }
 
     if(!IMG_Init(IMG_INIT_PNG))
     {
-        cout << "IMG_Init Failed. Error:" << SDL_GetError() << endl;
+        std::cout << "IMG_Init Failed. Error:" << SDL_GetError() << std::endl;
     }
 
-
-    //ENTITIES
-    int n= game::lvlGrid.w;
-    int m = game::lvlGrid.h; 
-    vector <vector <Entity> > tiles;
-
-
-     for(int i = 0; i < n; i++){
-        vector<Entity> innerVec;
-        for(int j = 0; j < m; j++){
-            innerVec.push_back(Entity(Vector2f(i*16,j*16),game::textures.grass, rand()%5));
-        }
-        tiles.push_back(innerVec);
-    }
-    
-
+    //OTHER SETTUP
     Input input;
-
-
 
     while(game::gameRunning){
         game::timer.setStart();
@@ -51,41 +35,35 @@ int main(int argc, char *args[]){
 
         game::timer.setDT();
         //movement
-        
         game::update();
+        
 
         //End frame timing
         game::timer.setLastUpdate();
         game::timer.setEnd();
         
+        // std::cout << "p-x: " << game::player.getPos().x/16;
+        // std::cout << " p-y: " <<game::player.getPos().y/16<< std::endl;
 
-
-        //RENDERING
+        //RENDERING 
         game::window.clear();
+        //game::level.render();
         
-
-        for(int i = 0;  i < n; i++){
-            vector<Entity>* innerVec = &tiles.at(i);
-            for(int j = 0; j < m; j++){
-                (*(&(innerVec->at(j)))).update();
-                game::window.render(*(&(innerVec->at(j))));
-               
-            }
-        }
-        
+ 
+        game::level->render();
         game::window.render(game::player);
-          
-        
         game::window.display();
-
-        
 
         //delay
         game::timer.capFrames();
         
     }
 
+ 
     game::window.cleanUp();
+
+    delete game::level;
+    game::level = nullptr;
     SDL_Quit();
 
     return 0;

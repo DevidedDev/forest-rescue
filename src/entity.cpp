@@ -18,6 +18,25 @@ Entity::Entity(Vector2f p_pos, SDL_Texture* p_tex, int p_frame)
 
 
 
+Entity::Entity(const Entity& e){
+    pos = e.pos;
+    dest_pos = pos;
+    tex = e.tex;
+    tile_size = e.tile_size;
+    currentFrame.x = e.currentFrame.x;
+    currentFrame.y = e.currentFrame.y;
+    currentFrame.w = e.tile_size;
+    currentFrame.h = e.tile_size;
+    //std:: cout << "Entity" << std::endl;
+}
+
+Entity::Entity(){
+    tex = nullptr;
+};
+
+
+
+
 SDL_Rect Entity::getCurrentFrame(){
     return currentFrame;
 }
