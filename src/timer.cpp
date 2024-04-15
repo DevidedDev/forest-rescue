@@ -24,6 +24,10 @@ void Timer::setStart(){
     start = SDL_GetPerformanceCounter();
 }
 
+int Timer::getStart(){
+    return start;
+}
+
 void Timer::setEnd(){
 end = SDL_GetPerformanceCounter();
 }
@@ -43,6 +47,10 @@ void Timer::capFrames(){
 
 void Timer::setCurent(){
     current = SDL_GetTicks();
+}
+
+int Timer::getCurent(){
+    return current;
 }
 
 void Timer::setCurent(Timer& p_timer){

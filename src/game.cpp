@@ -1,5 +1,6 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
+#include <SDL2/SDL_ttf.h>
 
 #include "../include/game.hpp"
 #include <iostream>
@@ -18,30 +19,35 @@
 
     bool game::gameRunning = true;
 
-    float game::difficulty = 2;
+    float game::difficulty = 1;
     Level* game::level = new Level();
 
     //Dimension game::game::lvlDimension(20*TILE_SIZE, 20*TILE_SIZE);
     int game::TILE_SIZE = 16;
     int game::SCALER = 2;
+    //LVL DIMENSION IN PIXELS
+    Dimension game::lvlGrid = game::level->getDimension();
     Dimension game::lvlDimension((game::level->getDimension().w)*game::TILE_SIZE, game::level->getDimension().h*game::TILE_SIZE);
     
     //TEXTURES
     Textures game::textures(window);
-    
+    //FONTS
+    TTF_Font* game::font = TTF_OpenFont("../res/dev/munro.ttf", 20);
+    Colors game::colors;
+
 
     Player game::player(Vector2f(0, 0), textures.player);
 
     SDL_Rect game::camera = {0, 0, WINDOW_WIDTH/(SCALER), WINDOW_HEIGHT/(SCALER)};
     
-
+    int game::fireSpread = 15000;
 
 void game::update(){
     player.update();
-    /*
-    cout << game::lvlDimension.w << " "
-    << game::lvlDimension.h << endl;
-    */
+    level->detectCollissions();
+    level->spawnEnemy();
+
+
     //tile size is the same as the player pos
     camera.x = (player.getPos().x + TILE_SIZE/2)- WINDOW_WIDTH/(2*SCALER);
     camera.y = (player.getPos().y + TILE_SIZE/2)- WINDOW_HEIGHT/(2*SCALER);

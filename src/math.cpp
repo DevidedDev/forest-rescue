@@ -17,6 +17,22 @@ Vector2f::Vector2f(){
     y = 0.0f;
 }
 
+Vector2f Vector2f::operator*(float p_n){
+    return Vector2f(
+        this-> x * p_n,
+        this-> y * p_n
+    );
+
+}
+
+Vector2f Vector2f::operator/(float p_n){
+    return Vector2f(
+        this-> x / p_n,
+        this-> y / p_n
+    );
+
+}
+
 
 Dimension::Dimension()
 :w(0), h(0)
@@ -25,4 +41,6 @@ Dimension::Dimension()
 Dimension::Dimension(int p_w, int p_h)
 :w(p_w), h(p_h)
 {}
+
+
 

@@ -15,7 +15,8 @@ struct Vector2f
     float x,y;
     Vector2f();
     Vector2f(float p_x, float p_y);
-    
+    Vector2f operator*(float p_n);
+    Vector2f operator/(float p_n);
 };
 
 struct Dimension{

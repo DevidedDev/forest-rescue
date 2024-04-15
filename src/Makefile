@@ -1,6 +1,5 @@
 #
 COMPILER = g++
-
 #.cpp files:
 FILES = *.cpp
 
@@ -9,7 +8,8 @@ EXECUTABLE_NAME = executable
 
 
 #LINKER FLAGS - what libraries we're linking?
-LINKER_FLAGS = -lSDL2 -lSDL2_image
+LINKER_FLAGS = -lSDL2 -lSDL2_image -lSDL2_ttf
+
 
 
 #COMPILER FLAGS - extra compilation options

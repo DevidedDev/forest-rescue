@@ -4,6 +4,8 @@ class Timer{
 private:
     //for frames
 
+
+
     int start;
     int end;
     float elapsed;
@@ -14,10 +16,14 @@ private:
     int lastUpdate;
 
     float deltaTime;
+
+    
 public:
     Timer();
     void setStart();
     void setEnd();
+    
+    int getStart();
 
     float getFps();
     
@@ -25,6 +31,7 @@ public:
 
     //for physics
     void setCurent();
+    int getCurent();
     void setCurent(Timer& p_timer);
     void setLastUpdate();
 

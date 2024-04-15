@@ -3,22 +3,31 @@
 #include "../include/game.hpp"
 
 Being::Being(Vector2f p_pos, SDL_Texture* p_tex, float p_maxHp)
-:Entity(p_pos, p_tex, 0)
+:Entity(p_pos, p_tex, 0),
+wanderInterval(0),
+direction("IDLE")
 {
-    direction = "IDLE";
+    lastUpdate = timer.getCurent();
 
-    maxHp = 100.0f;
+    maxHp = p_maxHp;
     curHp = maxHp;
 
     tileSize = 16;
     speed = 50;
     velocity.x = 0.0f;
     velocity.y = 0.0f;
+
 }
 
 void Being::setVelocityX(int p_vel)
 {
-    velocity.x = p_vel;
+    // if(pos.x <= 0 && p_vel < 0){
+    //     velocity.x = -(p_vel);
+    // }else
+        velocity.x = p_vel;
+    
+    
+    
 }
 
 void Being::setVelocityY(int p_vel)
@@ -35,7 +44,6 @@ void Being::update()
 {
     dest_pos.y = pos.y - game::camera.y;
     dest_pos.x = pos.x - game::camera.x;
-
     // animation
     updatePos();
     setDirection();
@@ -43,22 +51,15 @@ void Being::update()
 }
 
 void Being::updatePos()
-{
-    //pitagorov izrek za diagonalno premikanje
-    //float length = sqrt(velocity.x * velocity.x + velocity.y * velocity.y);
-
-    //"normaliziraj", če se premikaš diagonalno
-    /*
-    if (length != 0.0f) {
-        velocity.x /= length;
-        velocity.y /= length;
-    }
-    */
-    
-    //change position
-    pos.x += velocity.x * speed * game::timer.getDT();
-    pos.y += velocity.y * speed * game::timer.getDT();
-    
+{   //CHECK IF PLAYER INSIDE OF MAP
+    if((!(pos.x <= 0  && velocity.x < 0))
+        &&
+        (!(pos.x+dimension.w >= game::lvlDimension.w && velocity.x > 0))
+    ) pos.x += velocity.x * speed * game::timer.getDT();
+   if((!(pos.y <= 0  && velocity.y < 0))
+        &&
+        (!(pos.y+dimension.h >= game::lvlDimension.h && velocity.y > 0))
+    ) pos.y += velocity.y * speed * game::timer.getDT();
 }
 
 void Being::updateFrame()
@@ -123,3 +124,93 @@ void Being::setDirection()
         direction = "UP";
     }
 };
+
+bool Being::detectCollision(Entity& p_entity){
+    if(
+        //BOTTOM RIGHT CORNER COLLISSION
+        (
+        pos.x <= p_entity.getPos().x+p_entity.getDimension().w
+        &&
+        pos.x + dimension.w >= p_entity.getPos().x+p_entity.getDimension().w
+        ||
+        pos.x + dimension.w >= p_entity.getPos().x
+        &&
+        pos.x <= p_entity.getPos().x
+        )
+        &&
+        (
+        pos.y <= p_entity.getPos().y+p_entity.getDimension().h
+        &&
+        pos.y+ dimension.h >= p_entity.getPos().y+p_entity.getDimension().h
+        ||
+        pos.y + dimension.h >= p_entity.getPos().y
+        &&
+        pos.y <= p_entity.getPos().y
+        )
+
+        // &&
+        // pos.y <= p_entity.getPos().y+p_entity.getDimension().h
+        // &&
+        // pos.y >= p_entity.getPos().y+p_entity.getDimension().h
+    )
+    return true;
+    
+    // else{
+    //     //std::cout << "No collission" << std::endl;
+    // }
+}
+
+void Being::takeDamage(){
+}
+
+
+void Being::wander(){
+    //std:: cout << game::timer.getCurent() - lastUpdate << std::endl; 
+    if( (timer.getCurent() - lastUpdate )> wanderInterval)
+
+    {
+        //IDLE
+        if(getVelocity().x == 0 && getVelocity().y == 0 ){
+            do{
+                setVelocityX(rand()%3-1);
+                setVelocityY(rand()%3-1);
+            }while(getVelocity().x == 0 && getVelocity().y == 0 );
+            
+        }
+        //S
+        else{
+            setVelocityX(0);
+            setVelocityY(0);
+        }
+        lastUpdate = timer.getCurent();
+        wanderInterval = rand()%1500+1000;
+    }
+    
+}
+
+bool Being::isInVisibleRange(Entity& p_entity){
+if(
+    //BOTTOM RIGHT CORNER COLLISSION
+    (
+    pos.x - vision <= p_entity.getPos().x+p_entity.getDimension().w 
+    &&
+    pos.x+ dimension.w + vision >= p_entity.getPos().x+p_entity.getDimension().w 
+    ||
+    pos.x + dimension.w + vision >= p_entity.getPos().x
+    &&
+    pos.x - vision <= p_entity.getPos().x 
+    )
+    &&
+    (
+    pos.y  - vision <= p_entity.getPos().y+p_entity.getDimension().h 
+    &&
+    pos.y + dimension.h  + vision>= p_entity.getPos().y+p_entity.getDimension().h 
+    ||
+    pos.y + dimension.h  + vision >= p_entity.getPos().y 
+    &&
+    pos.y - vision<= p_entity.getPos().y 
+    )
+
+    )
+    return true;
+}

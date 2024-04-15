@@ -11,3 +11,7 @@
 #include "utils.hpp"
 #include "timer.hpp"
 #include "level.hpp"
+#include "enemy.hpp"
+#include "village.hpp"
+#include "tribesman.hpp"
+#include "fire.hpp"

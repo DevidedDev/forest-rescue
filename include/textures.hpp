@@ -11,6 +11,8 @@ struct Textures{
     SDL_Texture* grass;
     SDL_Texture* water;
     SDL_Texture* trees;
+    SDL_Texture* fire;
+    SDL_Texture* village;
     Textures(RenderWindow& p_window);
 
 };
