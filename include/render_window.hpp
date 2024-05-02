@@ -6,6 +6,7 @@
 #include "entity.hpp"
 #include "player.hpp"
 #include "text.hpp"
+#include "menu.hpp"
 
 
 class RenderWindow{
@@ -43,5 +44,7 @@ class RenderWindow{
 
         //SDL_Renderer* getRenderer();
 
-        void renderText(const char* p_text_val, SDL_Color p_color, Vector2f p_pos);
+        void renderText(const char* p_text_val, SDL_Color p_color, Vector2f p_pos, int fontSize);
+        void renderButton(Button p_btn);
+        void renderMenu();
 };

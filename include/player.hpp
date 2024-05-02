@@ -20,6 +20,5 @@ private:
     Vector2f velocity;
     
 public:
-    Player(Vector2f p_pos, SDL_Texture* p_tex);
+    Player( SDL_Texture* p_tex);
     };
-

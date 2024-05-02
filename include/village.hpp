@@ -6,6 +6,7 @@
 #include <vector>
 #include "tribesman.hpp"
 #include "math.hpp"
+#include "files.hpp"
 
 class Village{
 private:
@@ -16,10 +17,13 @@ private:
     std::vector<Entity*> buildings;
 public:
     Village(Vector2f p_location);
+    Village(VillageData p_vil_data);
     ~Village();
+    Village();
+    Village(const Village& p_vil);
     void update();
     void render();
     std::list<Tribesman*>* getTribesmenList();
-    
+    VillageData getVillageData();
 
 };

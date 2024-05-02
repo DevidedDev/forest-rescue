@@ -9,34 +9,44 @@
 
 Level::Level()
 {   
-    burnedTiles= 0;
     TileComp::resetBurnedTilesNum();
+    timer.setStart();
     
+    timer.setLastUpdate();
 
-    game::difficulty += 1;
-    killCount = 1;
-    killTarget = 5*game::difficulty;
-    dimension.h = floor(20*game::difficulty);
-    dimension.w = floor(20*game::difficulty);
-
-    game::lvlGrid = getDimension();
-    game::lvlDimension = Dimension(
+    //game::difficulty += 1;
+    killCount = 0;
+    killTarget = 1 + 2*game::difficulty;
+    dimension.h = floor(21 + game::difficulty * 2.5 );
+    dimension.w = floor(36+ game::difficulty * 2.5);
+    
+    game::lvlGrid = getDimension(); //in tiles
+    game::lvlDimension = Dimension( //in pixels
         (getDimension().w)*game::TILE_SIZE,
         getDimension().h*game::TILE_SIZE
     );
 
+
+    game::player.setPos(Vector2f(
+        rand()%dimension.w *game::TILE_SIZE,
+        rand()%dimension.h *game::TILE_SIZE
+        )
+    );
+
     allTiles = dimension.h * dimension.w;
     //std::cout << dimension.w << " " <<dimension.w << std::endl;
+
     for(int i = 0; i < dimension.h; i++){
         std::vector<TileComp*>vec;
         tiles.push_back(vec);
         for(int j = 0; j < dimension.w;j++){
-            TileComp* tmp = new TileComp(Vector2f(i,j));
+            TileComp* tmp = new TileComp(Vector2f(j,i));
             tiles[i].push_back(tmp);
             //std::cout << tiles[i].size() << std::endl;
         }
         //std::cout << &tiles[i] << std::endl;
     }
+        std::cout << "loaded" << std::endl;
 
     villagesNum = game::difficulty+1;
     //CREATE VILLAGES
@@ -46,21 +56,23 @@ Level::Level()
             Vector2f(
                 rand()%getDimension().w,
                 rand()%getDimension().h
+                
             )
         );
         villages.push_back(vil);
     }
 
-    enemiesNum = game::difficulty + rand()%2;
+    maxEnemies = game::difficulty + rand()%2;
     enemySpawnRate = 20000;
 
     //CREATE ENEMIES
-    for(int i = 0; i < enemiesNum; ++i){
+    for(int i = 0; i < maxEnemies; ++i){
         Enemy* tmp = new Enemy(
             Vector2f
             (
                 rand() % dimension.w,
                 rand() % dimension.h
+                
             )
         );
         enemies.push_back(tmp);
@@ -73,13 +85,34 @@ Level::Level()
 
 }
 
+Level::Level(const Level& p_lvl)
+:timer(p_lvl.timer), dimension(p_lvl.dimension) , tiles(p_lvl.tiles), villages(p_lvl.villages), enemies(p_lvl.enemies)
+{
+
+     allTiles = p_lvl.allTiles;
+     burnedTiles = burnedTiles;
+
+     villagesNum = p_lvl.villagesNum;
+     maxEnemies = p_lvl.maxEnemies;
+
+     lastSpawn = p_lvl.lastSpawn;
+     enemySpawnRate = p_lvl.enemySpawnRate;
+
+
+     killCount = p_lvl.killCount;
+     killTarget = p_lvl.killTarget;
+
+
+}
+
+
 Level::~Level(){
     for(int i = 0; i < dimension.h; i++){
-            for(int j = 0; j < dimension.w;j++){
-                delete tiles[i][j];
-                tiles[i][j] = nullptr;
-            }
+        for(int j = 0; j < dimension.w;j++){
+            delete tiles[i][j];
+            tiles[i][j] = nullptr;
         }
+    }
 
         tiles.clear();
 
@@ -98,67 +131,58 @@ Level::~Level(){
     std::cout << "level removed" << std::endl;
 }
 
+Level::Level(LevelData p_data)
+:timer(p_data.timer)
+{
+    TileComp::resetBurnedTilesNum();
+    lastSpawn = p_data.lastSpawn;
+    killCount = p_data.killCount;
+
+
+   
+    
+    killTarget = 1 + 2*game::difficulty;
+    dimension.h = floor(21 + game::difficulty * 2.5 );
+    dimension.w = floor(36+ game::difficulty * 2.5);
+
+    game::lvlGrid = getDimension(); //in tiles
+    game::lvlDimension = Dimension( //in pixels
+        (getDimension().w)*game::TILE_SIZE,
+        getDimension().h*game::TILE_SIZE
+    );
+
+    allTiles = dimension.h * dimension.w;
+
+    villagesNum = game::difficulty+1;
+
+    maxEnemies = game::difficulty + rand()%2;
+    enemySpawnRate = 20000;
+
+    lastSpawn = game::timer.getCurent();
+
+    std::cout << "level recreated" << std::endl;
+}
+
 Dimension Level::getDimension(){
     return dimension;
 }
 
 TileComp& Level::getTile(Vector2f p_pos){
-    return *tiles[p_pos.x][p_pos.y];
+    return *tiles[p_pos.y][p_pos.x];
 }
 
 void Level::render(){
   // cout << "Update tile" << endl;
-    for(int i = 0; i < dimension.w; i++){
-        for(int j = 0; j < tiles[i].size();j++){
+        game::timer.setCurent();
+
+    for(int i = 0; i < dimension.h; i++){
+        for(int j = 0; j < dimension.w;j++){
         tiles[i][j]->update();
         tiles[i][j]->renderGrass();
 
         //SPREAD
-        if(
-            tiles[i][j]->getIsBurning()
-            &&
-            (game::timer.getCurent() - tiles[i][j]->getFire().getLastSpread() ) > game::fireSpread
-            // &&
-            // tiles[i][j]->getLastTimeBurned() > game::fireSpread
-        ){
-            tiles[i][j]->getFire().setLastSpread();
-            Vector2f fireDirection;
-            
-            //CHECK IT GOES OUTSIDE OF MAP
-                int tmp = 0;
-                tmp = rand()%4;
-                switch (tmp)
-                {
-                case 0:
-                    if(i != 0)
-                    tiles[i-1][j]->startBurning();
-                    break;
-                case 1:
-                    if(i != this-> dimension.w-1)
-                    tiles[i+1][j]->startBurning();
-                    break;
+        fireSpread(Vector2f (j,i));
 
-                case 2:
-                    if(j != this-> dimension.w-1)
-                    tiles[i][j+1]->startBurning();
-                    break;
-
-                case 3:
-                    if(j != 0)
-                    tiles[i][j-1]->startBurning();
-                    break;
-
-                default:
-                std::cout<< "Invalid burn spread direction" << std::endl;
-                    break;
-                }
-            
-        }
-
-        // Entity *tree = (*tiles[i][j]).getTree();
-        // Entity *grass = (*tiles[i][j]).getGrass();
-        // game::window.render(*grass);
-        // game::window.render(*tree);
         }
         
     }
@@ -178,8 +202,8 @@ void Level::render(){
         game::window.render(*e);
     }
     //RENDER TREES &&FIRE
-    for(int i = 0; i < dimension.w; i++){
-        for(int j = 0; j < tiles[i].size();j++){
+    for(int i = 0; i < dimension.h; i++){
+        for(int j = 0; j < dimension.w;j++){
         if(!tiles[i][j]->getIsBurned()){
         if(!game::player.isInVisibleRange(*tiles[i][j]->getTree())){
             tiles[i][j]-> renderTree();
@@ -197,16 +221,43 @@ void Level::render(){
     char outputString[40];
     
      sprintf(outputString, "%s %d %s %d", "Kill count: ", killCount, "  / ", killTarget);
+
     game::window.renderText(
         outputString, 
-        game::colors.white, 
+        Colors::white, 
         Vector2f
         (
            0,0
-        )
+        ),
+        40
     );
-}
 
+    timer.setCurent();
+    sprintf(outputString, "%s %d", "Time: ", timer.getElapsed());
+
+    game::window.renderText(
+        outputString,
+        Colors::white,
+        Vector2f(0, 50),
+        30
+    );
+
+    sprintf(outputString, "%s %d", "Score: ", game::playerScore);
+    game::window.renderText(
+        outputString,
+        Colors::white,
+        Vector2f(0, 90),
+        30
+    );
+
+    game::window.renderText(
+        game::playerName,
+        Colors::white,
+        Vector2f(game::WINDOW_WIDTH - 300, 50),
+        30
+    );
+    //std::cout << game::playerName << std::endl;
+}
 void Level::detectCollissions(){
     int enemyColissions = 0;
     int visibleEnemies = 0;
@@ -251,7 +302,9 @@ void Level::detectCollissions(){
         
         ){
             //KILL PLAYER
-            game::gameRunning = false;
+
+            //game::gameRunning = false;
+            game::finishGame();
             
         }else{
             std::cout << "deleting enemies" << std::endl;
@@ -281,11 +334,12 @@ void Level::spawnEnemy(){
     if(
     game::timer.getCurent() - lastSpawn >= enemySpawnRate
     &&
-    enemiesNum > enemies.size()
+    maxEnemies > enemies.size()
     ){
     Vector2f enymPos;
-    enymPos.x = rand() % (dimension.w);
     enymPos.y = rand() % (dimension.h);
+    enymPos.x = rand() % (dimension.w);
+    
     Enemy* tmp = new Enemy(
             Vector2f
             (
@@ -300,7 +354,7 @@ void Level::spawnEnemy(){
 
 void Level::setFire(Vector2f p_pos){
     //std::cout << "Fire set" << std::endl;
-    getTile(p_pos).startBurning();
+    (*tiles[p_pos.y][p_pos.x]).startBurning();
 }
 
 bool Level::checkLevelFinished(){
@@ -316,6 +370,140 @@ bool Level::checkLevelFinished(){
 
 
 bool Level::checkGameEnd(){
-    std::cout << TileComp::burnedTilesNum/allTiles << std::endl;
-    return TileComp::burnedTilesNum/allTiles >= 0.7;
+    
+    return (float(TileComp::burnedTilesNum)/float(allTiles) >= 0.7);
 }
+
+Timer& Level::getTimer(){
+    return timer;
+}
+
+float Level::getNonBurnedPercent(){
+    return (1- float(TileComp::burnedTilesNum)/float(allTiles));
+}
+
+int &Level::getLastSpawn(){
+    return lastSpawn;
+}
+
+int &Level::getKillCount(){
+return killCount;
+}
+
+// Village Level::getVillage(int p_i){
+//     std::list<Village*>::iterator it = villages.begin(); 
+//     advance(it, 5); 
+
+//     return it;
+// };
+Village& Level::getVillage(int p_i){
+    if(p_i > villagesNum){
+        std::cout << "Unable to fetch village, out of bounds" << std::endl;
+    }
+    std::list<Village*>::iterator it;
+    it = villages.begin();
+    for( int i = 0 ; i < p_i; ++it, ++i){
+    }
+    return **it;
+};
+Enemy& Level::getEnemy(int p_i){
+    if(p_i > getEnemiesNum()){
+        std::cout << "Unable to fetch enemy, out of bounds" << std::endl;
+    }
+    std::list<Enemy*>::iterator it;
+    it = enemies.begin();
+    for( int i = 0 ; i < p_i; ++it, ++i){
+    }
+    return **it;
+};
+
+int& Level::getVillagesNum(){
+    return villagesNum;
+}
+
+int  Level::getEnemiesNum(){
+    return enemies.size();
+}
+
+void Level::copyTileMap(){
+    std::ifstream file_tiles;
+    file_tiles.open(fileSys::LVL_TILES_FILE_PATH , std::ios::binary);
+    TileComp tmp;
+    TileComp* newTile;
+    if(!file_tiles.is_open()){
+        std::cout << "Error: Unable to copy tile map" << std::endl;
+    }
+
+    for(int i = 0; i < dimension.h; i++){
+        std::vector<TileComp*>vec;
+
+        tiles.push_back(vec);
+        for(int j = 0; j < dimension.w;j++){
+            file_tiles.read((char*)&tmp, sizeof(TileComp));
+            newTile = new TileComp(tmp);
+            
+            tiles[i].push_back(newTile);
+            //std::cout << "Tiles:" <<i << " " <<j <<std::endl;
+            //std::cout << tiles[i].size() << std::endl;
+        }
+        //std::cout << &tiles[i] << std::endl;
+    }
+    std::cout << "TILES SAVED" <<std::endl;
+    file_tiles.close();
+}
+
+void Level::addEnemy(Vector2f& p_pos){
+    Enemy* enemy = new Enemy(p_pos);
+    enemies.push_back(enemy);
+    std::cout << "Enemy location: "<< &enemy << std::endl;
+
+}
+
+void Level::addVillage(VillageData& p_vil_data){
+    Village* vil = new Village(p_vil_data);
+    villages.push_back(vil);
+}
+
+void Level::fireSpread(Vector2f tile_pos){
+     // std::cout << tile_pos.x << " "  << tile_pos.y<< ": " <<tiles[tile_pos.y][tile_pos.x]->getFire().getLastSpread() << std::endl;
+    if((game::timer.getCurent() - tiles[tile_pos.y][tile_pos.x]->getFire().getLastSpread() ) > game::fireSpread){
+      //  std::cout << "time to spread" << std::endl;
+    }
+    if(
+        tiles[tile_pos.y][tile_pos.x]->getIsBurning()
+        &&
+        (game::timer.getCurent() - tiles[tile_pos.y][tile_pos.x]->getFire().getLastSpread() ) > game::fireSpread
+        // &&
+        // tiles[i][j]->getLastTimeBurned() > game::fireSpread
+    ){
+        tiles[tile_pos.y][tile_pos.x]->getFire().setLastSpread();
+    
+        //CHECK IT GOES OUTSIDE OF MAP
+        int tmp = 0;
+        tmp = rand()%4;
+        switch (tmp)
+        {
+        case 0:
+            if(tile_pos.y != 0)
+                tiles[tile_pos.y -1][tile_pos.x]->startBurning();
+            break;
+        case 1:
+            if(tile_pos.y  != this-> dimension.h-1)
+                tiles[tile_pos.y +1][tile_pos.x]->startBurning();
+            break;
+        case 2:
+            if(tile_pos.x != this-> dimension.w-1)
+                tiles[tile_pos.y ][tile_pos.x+1]->startBurning();
+            break;
+        case 3:
+            if(tile_pos.x != 0)
+                tiles[tile_pos.y ][tile_pos.x-1]->startBurning();
+            break;
+        default:
+        std::cout<< "Invalid burn spread direction" << std::endl;
+            break;
+        }
+    }
+        
+}
+

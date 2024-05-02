@@ -57,6 +57,42 @@ Village::Village(Vector2f p_location)
     std::cout << "y" << location.y << std::endl;
 }
 
+Village::Village(){
+
+}
+
+Village::Village(const Village& p_vil){
+    dimension = p_vil.dimension;
+    location = p_vil.location;
+    occupants = p_vil.occupants;
+}
+
+Village::Village(VillageData p_vil){
+    dimension = p_vil.dim;
+    location = p_vil.pos;
+    occupants = p_vil.villagersNum;
+
+     //Create tribesmen
+    for(int i = 0; i < occupants;i++ ){
+        Tribesman* tmp = new Tribesman(location, dimension);
+        tribesmen.push_back(tmp);
+    }
+    //create houses
+    for(int i = 0; i < dimension.h;i++){
+        for(int j = 0; j < dimension.w; j++){
+            if(rand() % 5 == 0){ // 1 in 5 tiles is hosue
+                Entity* tmp = new Entity
+                (
+                    Vector2f(location.x + j, 
+                    location.y + i), 
+                    game::textures.village, 
+                    (rand()%4)
+                );
+                buildings.push_back(tmp);
+            }
+        }
+    }
+}
 
 Village::~Village() {
     for (Tribesman* tribesman : tribesmen) {
@@ -95,4 +131,12 @@ void Village::render(){
 
 std::list<Tribesman*>* Village::getTribesmenList(){
     return &tribesmen;
+}
+
+VillageData Village::getVillageData(){
+    VillageData data;
+    data.dim = dimension;
+    data.pos = location;
+    data.villagersNum = occupants;
+    return data;
 }

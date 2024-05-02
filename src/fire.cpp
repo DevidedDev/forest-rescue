@@ -5,19 +5,30 @@
 #include "../include/game.hpp"
 
 Fire::Fire(Vector2f p_pos)
-:Entity(p_pos, game::textures.fire, 0),
-burnTime(20000),
-isSpread(false)
+:Entity(p_pos, game::textures.fire, 0)
 {
+    burnStart  = 0;
+    lastSpread = 13;
 };
 
+Fire::Fire(const Fire& p_fire)
+:Entity(Vector2f(
+    p_fire.pos.x/16,
+    p_fire.pos.y/16)
+    
+    , game::textures.fire, p_fire.currentFrame.x),
+timer(p_fire.timer)
+{   
+    lastSpread = p_fire.lastSpread;
+    burnStart = timer.getStart() +(p_fire.burnStart -  timer.getStart());
+};
+
+Fire::Fire(){};
 
 void Fire::updateFrame(){
     timer.setCurent(game::timer);
     timer.setDT();
     int framesToUpdate = floor(timer.getDT() / (1.0f / game::animatedFPS));
-    
-
     if (framesToUpdate > 0) {
         
         timer.setLastUpdate();
@@ -38,6 +49,7 @@ void Fire::update(){
     if(currentFrame.x == 0){
         burnStart = game::timer.getCurent();
         lastSpread = game::timer.getCurent();
+        
     }
     
     Entity::update();
@@ -56,7 +68,7 @@ bool Fire::putOut(){
 
 
 bool Fire::destroyTile(){
-    if(game::timer.getCurent() - burnStart >= burnTime){
+    if(game::timer.getCurent() - burnStart >= game::burnTime){
         //std::cout << "Burning time" << timer.getCurent() - burnStart << std::endl;
         currentFrame.x = 0;
         return true;
@@ -64,6 +76,9 @@ bool Fire::destroyTile(){
     return false;
 }
 
+void Fire::setBurnStart(){
+    burnStart = game::timer.getCurent();
+}
 
 int Fire::getBurnStart(){
     return burnStart;
@@ -77,7 +92,6 @@ int Fire::getLastSpread(){
 
 void Fire::setLastSpread(){
     lastSpread = game::timer.getCurent();
-    isSpread = true;
 }
 
 

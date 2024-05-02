@@ -8,7 +8,7 @@ EXECUTABLE_NAME = executable
 
 
 #LINKER FLAGS - what libraries we're linking?
-LINKER_FLAGS = -lSDL2 -lSDL2_image -lSDL2_ttf
+LINKER_FLAGS = -lSDL2 -lSDL2_image -lSDL2_ttf  -ggdb3 
 
 
 

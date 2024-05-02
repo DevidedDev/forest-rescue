@@ -18,12 +18,25 @@ Entity::Entity(Vector2f p_pos, SDL_Texture* p_tex, int p_frame)
     dimension.h = tile_size;
 }
 
+Entity::Entity(Vector2f p_pos, SDL_Texture* p_tex, Vector2f p_frame)
+:pos(Vector2f(p_pos.x *game::TILE_SIZE, p_pos.y *game::TILE_SIZE)), dest_pos(pos), tex(p_tex)
+//starting position = actual position
+{   
+    int tile_size = game::TILE_SIZE;
+    currentFrame.x = p_frame.x;
+    currentFrame.y = p_frame.y;
+    currentFrame.w = tile_size;
+    currentFrame.h = tile_size;
+    dimension.w = tile_size;
+    dimension.h = tile_size;
+}
+
 
 
 Entity::Entity(const Entity& e){
     pos = e.pos;
     dest_pos = pos;
-    tex = e.tex;
+    tex = game::textures.enemy;
     tile_size = e.tile_size;
     currentFrame.x = e.currentFrame.x;
     currentFrame.y = e.currentFrame.y;
@@ -34,8 +47,16 @@ Entity::Entity(const Entity& e){
     //std:: cout << "Entity" << std::endl;
 }
 
-Entity::Entity(){
-    tex = nullptr;
+Entity::Entity()
+    :pos(Vector2f(0 ,0)), dest_pos(Vector2f(0 ,0))
+{
+    int tile_size = game::TILE_SIZE;
+    currentFrame.x = 0;
+    currentFrame.y = 0;
+    currentFrame.w = tile_size;
+    currentFrame.h = tile_size;
+    dimension.w = tile_size;
+    dimension.h = tile_size;
 };
 
 Vector2f& Entity::getPos(){
@@ -79,3 +100,4 @@ void Entity::updateFramePos(Vector2f p_pos){
     currentFrame.y = p_pos.y;
 
 }
+

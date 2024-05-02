@@ -20,6 +20,7 @@ public:
     static int burnedTilesNum;
     TileComp(const Vector2f& p_pos);
     TileComp();
+    TileComp( TileComp& tile_comp);
     void update();
     void render();
     Entity* getTree();
@@ -27,7 +28,7 @@ public:
     void startBurning();
     bool getIsBurning();
     bool getIsBurned();
-    Fire getFire();
+    Fire& getFire();
     int getLastTimeBurned();
     void renderGrass();
     void renderTree();

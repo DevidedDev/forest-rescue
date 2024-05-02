@@ -15,3 +15,5 @@
 #include "village.hpp"
 #include "tribesman.hpp"
 #include "fire.hpp"
+#include "menu.hpp"
+#include "files.hpp"

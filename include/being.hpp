@@ -27,6 +27,7 @@ protected:
     
 
 public:
+    Being();
     Being(Vector2f p_pos, SDL_Texture* p_tex, float p_maxHp);
     
     void setVelocityX(int p_vel);
@@ -42,6 +43,7 @@ public:
     void takeDamage();
     void wander();
     bool isInVisibleRange(Entity& p_entity);
+    void setPos(Vector2f);
 
 };
 

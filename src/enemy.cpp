@@ -14,6 +14,25 @@ Enemy::Enemy(Vector2f p_pos)
     speed = 40;
 }
 
+Enemy::Enemy(){}
+
+Enemy::Enemy(const Enemy& p_enym)
+:Being
+    (
+        Vector2f(
+            p_enym.pos.x/16,
+            p_enym.pos.y/16
+            ),
+        game::textures.enemy, 
+        100.0f
+    )
+{   
+    vision = 3*16;
+    tileSize = game::TILE_SIZE;
+    speed = 40;
+
+}
+
 void Enemy::followPlayer(){
     
     if(game::player.getPos().x > pos.x+dimension.w){
@@ -68,3 +87,4 @@ bool Enemy::isIdle(){
 Vector2f Enemy::getTilePos(){
     return getPos()/16;
 }
+

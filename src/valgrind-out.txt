@@ -1,0 +1,179 @@
+==58650== Memcheck, a memory error detector
+==58650== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==58650== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
+==58650== Command: ./executable
+==58650== Parent PID: 37073
+==58650== 
+==58650== Syscall param ioctl(generic) points to uninitialised byte(s)
+==58650==    at 0x4E9294F: ioctl (ioctl.c:36)
+==58650==    by 0x529F86F: drmIoctl (in /usr/lib/x86_64-linux-gnu/libdrm.so.2.4.0)
+==58650==    by 0x52A290F: drmCommandWriteRead (in /usr/lib/x86_64-linux-gnu/libdrm.so.2.4.0)
+==58650==    by 0x1036AB7B: ??? (in /usr/lib/x86_64-linux-gnu/libdrm_nouveau.so.2.0.0)
+==58650==    by 0x1036BCDA: nouveau_device_new (in /usr/lib/x86_64-linux-gnu/libdrm_nouveau.so.2.0.0)
+==58650==    by 0x7BD75B4: nouveau_drm_screen_create (in /usr/lib/x86_64-linux-gnu/dri/nouveau_dri.so)
+==58650==    by 0x730719A: ??? (in /usr/lib/x86_64-linux-gnu/dri/nouveau_dri.so)
+==58650==    by 0x795E5E6: ??? (in /usr/lib/x86_64-linux-gnu/dri/nouveau_dri.so)
+==58650==    by 0x7308F54: ??? (in /usr/lib/x86_64-linux-gnu/dri/nouveau_dri.so)
+==58650==    by 0x7311265: ??? (in /usr/lib/x86_64-linux-gnu/dri/nouveau_dri.so)
+==58650==    by 0x6DA05E1: ??? (in /usr/lib/x86_64-linux-gnu/libGLX_mesa.so.0.0.0)
+==58650==    by 0x6D91F80: ??? (in /usr/lib/x86_64-linux-gnu/libGLX_mesa.so.0.0.0)
+==58650==  Address 0x6fb0302 is 2 bytes inside a block of size 72 alloc'd
+==58650==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==58650==    by 0x1036AB27: ??? (in /usr/lib/x86_64-linux-gnu/libdrm_nouveau.so.2.0.0)
+==58650==    by 0x1036BCDA: nouveau_device_new (in /usr/lib/x86_64-linux-gnu/libdrm_nouveau.so.2.0.0)
+==58650==    by 0x7BD75B4: nouveau_drm_screen_create (in /usr/lib/x86_64-linux-gnu/dri/nouveau_dri.so)
+==58650==    by 0x730719A: ??? (in /usr/lib/x86_64-linux-gnu/dri/nouveau_dri.so)
+==58650==    by 0x795E5E6: ??? (in /usr/lib/x86_64-linux-gnu/dri/nouveau_dri.so)
+==58650==    by 0x7308F54: ??? (in /usr/lib/x86_64-linux-gnu/dri/nouveau_dri.so)
+==58650==    by 0x7311265: ??? (in /usr/lib/x86_64-linux-gnu/dri/nouveau_dri.so)
+==58650==    by 0x6DA05E1: ??? (in /usr/lib/x86_64-linux-gnu/libGLX_mesa.so.0.0.0)
+==58650==    by 0x6D91F80: ??? (in /usr/lib/x86_64-linux-gnu/libGLX_mesa.so.0.0.0)
+==58650==    by 0x6D8DBD7: ??? (in /usr/lib/x86_64-linux-gnu/libGLX_mesa.so.0.0.0)
+==58650==    by 0x4964B2C: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.18.2)
+==58650==  Uninitialised value was created by a heap allocation
+==58650==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==58650==    by 0x1036AB27: ??? (in /usr/lib/x86_64-linux-gnu/libdrm_nouveau.so.2.0.0)
+==58650==    by 0x1036BCDA: nouveau_device_new (in /usr/lib/x86_64-linux-gnu/libdrm_nouveau.so.2.0.0)
+==58650==    by 0x7BD75B4: nouveau_drm_screen_create (in /usr/lib/x86_64-linux-gnu/dri/nouveau_dri.so)
+==58650==    by 0x730719A: ??? (in /usr/lib/x86_64-linux-gnu/dri/nouveau_dri.so)
+==58650==    by 0x795E5E6: ??? (in /usr/lib/x86_64-linux-gnu/dri/nouveau_dri.so)
+==58650==    by 0x7308F54: ??? (in /usr/lib/x86_64-linux-gnu/dri/nouveau_dri.so)
+==58650==    by 0x7311265: ??? (in /usr/lib/x86_64-linux-gnu/dri/nouveau_dri.so)
+==58650==    by 0x6DA05E1: ??? (in /usr/lib/x86_64-linux-gnu/libGLX_mesa.so.0.0.0)
+==58650==    by 0x6D91F80: ??? (in /usr/lib/x86_64-linux-gnu/libGLX_mesa.so.0.0.0)
+==58650==    by 0x6D8DBD7: ??? (in /usr/lib/x86_64-linux-gnu/libGLX_mesa.so.0.0.0)
+==58650==    by 0x4964B2C: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.18.2)
+==58650== 
+==58650== Syscall param ioctl(generic) points to uninitialised byte(s)
+==58650==    at 0x4E9294F: ioctl (ioctl.c:36)
+==58650==    by 0x529F86F: drmIoctl (in /usr/lib/x86_64-linux-gnu/libdrm.so.2.4.0)
+==58650==    by 0x52A290F: drmCommandWriteRead (in /usr/lib/x86_64-linux-gnu/libdrm.so.2.4.0)
+==58650==    by 0x1036B3A5: nouveau_object_mthd (in /usr/lib/x86_64-linux-gnu/libdrm_nouveau.so.2.0.0)
+==58650==    by 0x1036BCF9: nouveau_device_new (in /usr/lib/x86_64-linux-gnu/libdrm_nouveau.so.2.0.0)
+==58650==    by 0x7BD75B4: nouveau_drm_screen_create (in /usr/lib/x86_64-linux-gnu/dri/nouveau_dri.so)
+==58650==    by 0x730719A: ??? (in /usr/lib/x86_64-linux-gnu/dri/nouveau_dri.so)
+==58650==    by 0x795E5E6: ??? (in /usr/lib/x86_64-linux-gnu/dri/nouveau_dri.so)
+==58650==    by 0x7308F54: ??? (in /usr/lib/x86_64-linux-gnu/dri/nouveau_dri.so)
+==58650==    by 0x7311265: ??? (in /usr/lib/x86_64-linux-gnu/dri/nouveau_dri.so)
+==58650==    by 0x6DA05E1: ??? (in /usr/lib/x86_64-linux-gnu/libGLX_mesa.so.0.0.0)
+==58650==    by 0x6D91F80: ??? (in /usr/lib/x86_64-linux-gnu/libGLX_mesa.so.0.0.0)
+==58650==  Address 0x6fb0392 is 2 bytes inside a block of size 136 alloc'd
+==58650==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==58650==    by 0x1036B366: nouveau_object_mthd (in /usr/lib/x86_64-linux-gnu/libdrm_nouveau.so.2.0.0)
+==58650==    by 0x1036BCF9: nouveau_device_new (in /usr/lib/x86_64-linux-gnu/libdrm_nouveau.so.2.0.0)
+==58650==    by 0x7BD75B4: nouveau_drm_screen_create (in /usr/lib/x86_64-linux-gnu/dri/nouveau_dri.so)
+==58650==    by 0x730719A: ??? (in /usr/lib/x86_64-linux-gnu/dri/nouveau_dri.so)
+==58650==    by 0x795E5E6: ??? (in /usr/lib/x86_64-linux-gnu/dri/nouveau_dri.so)
+==58650==    by 0x7308F54: ??? (in /usr/lib/x86_64-linux-gnu/dri/nouveau_dri.so)
+==58650==    by 0x7311265: ??? (in /usr/lib/x86_64-linux-gnu/dri/nouveau_dri.so)
+==58650==    by 0x6DA05E1: ??? (in /usr/lib/x86_64-linux-gnu/libGLX_mesa.so.0.0.0)
+==58650==    by 0x6D91F80: ??? (in /usr/lib/x86_64-linux-gnu/libGLX_mesa.so.0.0.0)
+==58650==    by 0x6D8DBD7: ??? (in /usr/lib/x86_64-linux-gnu/libGLX_mesa.so.0.0.0)
+==58650==    by 0x4964B2C: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.18.2)
+==58650==  Uninitialised value was created by a heap allocation
+==58650==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==58650==    by 0x1036B366: nouveau_object_mthd (in /usr/lib/x86_64-linux-gnu/libdrm_nouveau.so.2.0.0)
+==58650==    by 0x1036BCF9: nouveau_device_new (in /usr/lib/x86_64-linux-gnu/libdrm_nouveau.so.2.0.0)
+==58650==    by 0x7BD75B4: nouveau_drm_screen_create (in /usr/lib/x86_64-linux-gnu/dri/nouveau_dri.so)
+==58650==    by 0x730719A: ??? (in /usr/lib/x86_64-linux-gnu/dri/nouveau_dri.so)
+==58650==    by 0x795E5E6: ??? (in /usr/lib/x86_64-linux-gnu/dri/nouveau_dri.so)
+==58650==    by 0x7308F54: ??? (in /usr/lib/x86_64-linux-gnu/dri/nouveau_dri.so)
+==58650==    by 0x7311265: ??? (in /usr/lib/x86_64-linux-gnu/dri/nouveau_dri.so)
+==58650==    by 0x6DA05E1: ??? (in /usr/lib/x86_64-linux-gnu/libGLX_mesa.so.0.0.0)
+==58650==    by 0x6D91F80: ??? (in /usr/lib/x86_64-linux-gnu/libGLX_mesa.so.0.0.0)
+==58650==    by 0x6D8DBD7: ??? (in /usr/lib/x86_64-linux-gnu/libGLX_mesa.so.0.0.0)
+==58650==    by 0x4964B2C: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.18.2)
+==58650== 
+==58650== Conditional jump or move depends on uninitialised value(s)
+==58650==    at 0x110254: Fire::destroyTile() (fire.cpp:67)
+==58650==    by 0x119F54: TileComp::update() (tile_component.cpp:68)
+==58650==    by 0x111F82: Level::render() (level.cpp:183)
+==58650==    by 0x11059A: game::update() (game.cpp:94)
+==58650==    by 0x117C48: main (main.cpp:70)
+==58650==  Uninitialised value was created by a heap allocation
+==58650==    at 0x4849013: operator new(unsigned long) (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==58650==    by 0x1131E3: Level::copyTileMap() (level.cpp:486)
+==58650==    by 0x10F9C0: fileSys::openLevel() (files.cpp:206)
+==58650==    by 0x110F42: Mouse::getBtn(SDL_Event&) (input.cpp:101)
+==58650==    by 0x1110AF: Input::getInput() (input.cpp:128)
+==58650==    by 0x117BF8: main (main.cpp:47)
+==58650== 
+==58650== Conditional jump or move depends on uninitialised value(s)
+==58650==    at 0x11207A: Level::render() (level.cpp:189)
+==58650==    by 0x11059A: game::update() (game.cpp:94)
+==58650==    by 0x117C48: main (main.cpp:70)
+==58650==  Uninitialised value was created by a stack allocation
+==58650==    at 0x111F00: Level::render() (level.cpp:179)
+==58650== 
+==58650== Syscall param writev(vector[...]) points to uninitialised byte(s)
+==58650==    at 0x4E92A8D: __writev (writev.c:26)
+==58650==    by 0x4E92A8D: writev (writev.c:24)
+==58650==    by 0x4B13D91: std::__basic_file<char>::xsputn_2(char const*, long, char const*, long) (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.30)
+==58650==    by 0x4B56D26: std::basic_filebuf<char, std::char_traits<char> >::xsputn(char const*, long) (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.30)
+==58650==    by 0x4B7F375: std::ostream::write(char const*, long) (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.30)
+==58650==    by 0x10F277: fileSys::saveLevel() (files.cpp:134)
+==58650==    by 0x110A67: Keyboard::getKey(SDL_Event&, bool) (input.cpp:43)
+==58650==    by 0x1110CD: Input::getInput() (input.cpp:131)
+==58650==    by 0x117BF8: main (main.cpp:47)
+==58650==  Address 0x13a17ce0 is 0 bytes inside a block of size 8,192 alloc'd
+==58650==    at 0x484A2F3: operator new[](unsigned long) (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==58650==    by 0x4B58023: std::basic_filebuf<char, std::char_traits<char> >::_M_allocate_internal_buffer() (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.30)
+==58650==    by 0x4B5C015: std::basic_filebuf<char, std::char_traits<char> >::open(char const*, std::_Ios_Openmode) (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.30)
+==58650==    by 0x4B5C213: std::basic_ofstream<char, std::char_traits<char> >::open(char const*, std::_Ios_Openmode) (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.30)
+==58650==    by 0x10F1BF: fileSys::saveLevel() (files.cpp:127)
+==58650==    by 0x110A67: Keyboard::getKey(SDL_Event&, bool) (input.cpp:43)
+==58650==    by 0x1110CD: Input::getInput() (input.cpp:131)
+==58650==    by 0x117BF8: main (main.cpp:47)
+==58650==  Uninitialised value was created by a heap allocation
+==58650==    at 0x4849013: operator new(unsigned long) (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==58650==    by 0x1131E3: Level::copyTileMap() (level.cpp:486)
+==58650==    by 0x10F9C0: fileSys::openLevel() (files.cpp:206)
+==58650==    by 0x110F42: Mouse::getBtn(SDL_Event&) (input.cpp:101)
+==58650==    by 0x1110AF: Input::getInput() (input.cpp:128)
+==58650==    by 0x117BF8: main (main.cpp:47)
+==58650== 
+==58650== Syscall param write(buf) points to uninitialised byte(s)
+==58650==    at 0x4E8C8BF: __libc_write (write.c:26)
+==58650==    by 0x4E8C8BF: write (write.c:24)
+==58650==    by 0x4B13CDC: std::__basic_file<char>::xsputn(char const*, long) (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.30)
+==58650==    by 0x4B581AE: std::basic_filebuf<char, std::char_traits<char> >::_M_convert_to_external(char*, long) (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.30)
+==58650==    by 0x4B585F1: std::basic_filebuf<char, std::char_traits<char> >::overflow(int) (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.30)
+==58650==    by 0x4B58342: std::basic_filebuf<char, std::char_traits<char> >::_M_terminate_output() (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.30)
+==58650==    by 0x4B5B4AE: std::basic_filebuf<char, std::char_traits<char> >::close() (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.30)
+==58650==    by 0x4B5D1D0: std::basic_ofstream<char, std::char_traits<char> >::close() (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.30)
+==58650==    by 0x10F2B8: fileSys::saveLevel() (files.cpp:137)
+==58650==    by 0x110A67: Keyboard::getKey(SDL_Event&, bool) (input.cpp:43)
+==58650==    by 0x1110CD: Input::getInput() (input.cpp:131)
+==58650==    by 0x117BF8: main (main.cpp:47)
+==58650==  Address 0x13a17ce0 is 0 bytes inside a block of size 8,192 alloc'd
+==58650==    at 0x484A2F3: operator new[](unsigned long) (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==58650==    by 0x4B58023: std::basic_filebuf<char, std::char_traits<char> >::_M_allocate_internal_buffer() (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.30)
+==58650==    by 0x4B5C015: std::basic_filebuf<char, std::char_traits<char> >::open(char const*, std::_Ios_Openmode) (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.30)
+==58650==    by 0x4B5C213: std::basic_ofstream<char, std::char_traits<char> >::open(char const*, std::_Ios_Openmode) (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.30)
+==58650==    by 0x10F1BF: fileSys::saveLevel() (files.cpp:127)
+==58650==    by 0x110A67: Keyboard::getKey(SDL_Event&, bool) (input.cpp:43)
+==58650==    by 0x1110CD: Input::getInput() (input.cpp:131)
+==58650==    by 0x117BF8: main (main.cpp:47)
+==58650==  Uninitialised value was created by a heap allocation
+==58650==    at 0x4849013: operator new(unsigned long) (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==58650==    by 0x1131E3: Level::copyTileMap() (level.cpp:486)
+==58650==    by 0x10F9C0: fileSys::openLevel() (files.cpp:206)
+==58650==    by 0x110F42: Mouse::getBtn(SDL_Event&) (input.cpp:101)
+==58650==    by 0x1110AF: Input::getInput() (input.cpp:128)
+==58650==    by 0x117BF8: main (main.cpp:47)
+==58650== 
+==58650== 
+==58650== HEAP SUMMARY:
+==58650==     in use at exit: 7,116,845 bytes in 9,454 blocks
+==58650==   total heap usage: 492,785 allocs, 483,331 frees, 239,301,148 bytes allocated
+==58650== 
+==58650== LEAK SUMMARY:
+==58650==    definitely lost: 0 bytes in 0 blocks
+==58650==    indirectly lost: 0 bytes in 0 blocks
+==58650==      possibly lost: 5,636,103 bytes in 2,407 blocks
+==58650==    still reachable: 1,480,742 bytes in 7,047 blocks
+==58650==         suppressed: 0 bytes in 0 blocks
+==58650== Rerun with --leak-check=full to see details of leaked memory
+==58650== 
+==58650== For lists of detected and suppressed errors, rerun with: -s
+==58650== ERROR SUMMARY: 785 errors from 6 contexts (suppressed: 0 from 0)

@@ -43,4 +43,22 @@ Dimension::Dimension(int p_w, int p_h)
 {}
 
 
+bool math::isInBounds(SDL_Rect p_rect, Vector2f p_pos2){
+    if(
+        (
+            p_rect.x <= p_pos2.x
+            &&
+            p_rect.x + p_rect.w >= p_pos2.x
+        )
+        &&
+        (
+            p_rect.y <= p_pos2.y
+            &&
+            p_rect.y + p_rect.h >= p_pos2.y
+        )
+    )
+    return 1;
 
+    
+    return 0;
+}

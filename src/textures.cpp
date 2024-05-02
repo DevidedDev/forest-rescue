@@ -13,6 +13,14 @@ Textures::Textures(RenderWindow& p_window){
     trees = p_window.loadTexture("../res/gfx/trees_texture.png");
     fire = p_window.loadTexture("../res/gfx/fire_texture.png");
     village = p_window.loadTexture("../res/gfx/village_texture.png");
-
+    
+    forest_bg = p_window.loadTexture("../res/gfx/forest_bg.png");
 
 };
+
+
+
+
+SDL_Color Colors::white = {255,255,255, 255};
+SDL_Color Colors::black = {0,0,0, 255};
+SDL_Color Colors::gray = {200, 200, 200,  255};

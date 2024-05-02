@@ -8,20 +8,35 @@
 
 
 Timer::Timer(){
-    start = 0;
+    start = SDL_GetTicks();
     end = 0;
     elapsed = 0.0f;
     elapsedMs = 0.0f;
+
     
     //4 physics 
-    lastUpdate = SDL_GetTicks();
-    current = 0;
+    lastUpdate =SDL_GetTicks();
+    current = SDL_GetTicks();
 
     float deltaTime = 0;
 }
 
+
+Timer::Timer(const Timer& p_timer){
+    start = SDL_GetTicks()- (p_timer.current - p_timer.start);
+    end = 0;
+    elapsed = 0.0f;
+    elapsedMs = 0.0f;
+
+    
+    //4 physics 
+    lastUpdate = SDL_GetTicks();
+    current =  SDL_GetTicks();
+
+    float deltaTime = 0;
+}
 void Timer::setStart(){
-    start = SDL_GetPerformanceCounter();
+    start = SDL_GetTicks();
 }
 
 int Timer::getStart(){
@@ -68,3 +83,8 @@ void Timer::setDT(){
 float Timer::getDT(){
     return deltaTime;
 }
+
+int Timer::getElapsed(){
+    return (int)((current - start)/1000);
+}
+

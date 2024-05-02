@@ -10,6 +10,8 @@ class Enemy: public Being
 {
 private:
 public:
+    Enemy();
+    Enemy(const Enemy& p_enym);
     Enemy(Vector2f p_pos);
     void followPlayer();
     void cutTree();

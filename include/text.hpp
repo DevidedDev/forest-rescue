@@ -6,10 +6,7 @@
 #include <iostream>
 #include <string>
 
-struct Colors{
-    SDL_Color black = {0, 0, 0, 255};
-    SDL_Color white = {255, 255, 255, 255};
-};
+
 
 
 class Text

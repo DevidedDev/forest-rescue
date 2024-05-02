@@ -13,6 +13,15 @@ struct Textures{
     SDL_Texture* trees;
     SDL_Texture* fire;
     SDL_Texture* village;
+    SDL_Texture* forest_bg;
     Textures(RenderWindow& p_window);
 
+};
+
+
+
+
+struct Colors{
+    static SDL_Color white, black, gray;
+    
 };

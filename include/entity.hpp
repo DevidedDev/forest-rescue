@@ -16,6 +16,7 @@ protected:
 public:
 
     Entity(Vector2f p_pos, SDL_Texture* p_tex, int p_frame);
+    Entity(Vector2f p_pos, SDL_Texture* p_tex, Vector2f p_frame);
     Entity();
     Entity(const Entity& e);
     SDL_Rect getCurrentFrame();

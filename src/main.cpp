@@ -5,6 +5,7 @@
 #include <vector>
 #include <list>
 #include <time.h>
+#include <cstring>
 
 #include "../include/includes.hpp"
 
@@ -12,9 +13,9 @@
 int main(int argc, char *args[]){
     srand(time(0));
 
-    delete game::level;
-    game::difficulty = 0;
-    game::level = new Level();
+    // delete game::level;
+    // game::difficulty = 0;
+    // game::level = new Level();
     // Enemy testEnemy;
     //Entity testEnt(Vector2f(1,1), game::textures.grass, 0);
 
@@ -36,22 +37,11 @@ int main(int argc, char *args[]){
     //OTHER SETTUP
     Input input;
 
-    //TEST
-    // TTF_Font *font = TTF_OpenFont("../res/dev/munro.ttf", 20);
-    // SDL_Color color = {144, 77, 255, 255};
-    // SDL_Surface *textSurface = TTF_RenderText_Solid (font, "COOL GAME MAN!", color);
-    // SDL_Texture *text = SDL_CreateTextureFromSurface(game::window.getRenderer(), textSurface);
-    // SDL_Rect textRect;
-    // textRect.x = textRect.y = 0;
-    // SDL_QueryTexture(text, NULL, NULL, &textRect.w, &textRect.h);
-
-    // SDL_FreeSurface(textSurface);
-
-    // textSurface = nullptr;
-
+    
+    
     while(game::gameRunning){
-
-   
+        
+        
         game::timer.setStart();
 
         input.getInput();
@@ -61,7 +51,9 @@ int main(int argc, char *args[]){
 
         game::timer.setDT();
         //movement
-        game::update();
+
+        
+        
         
 
         //End frame timing
@@ -75,47 +67,50 @@ int main(int argc, char *args[]){
         game::window.clear();
         //game::level.render();
         
- 
-        game::level->render();
-        game::window.render(game::player);
-    //test
-        // testEnemy.update();
-        // game::window.render(testEnemy);
-        // testEnemy.detectCollision(game::player);
-        // testTribesman.update();
-        // game::window.render(testTribesman);
-        // testFire.update();
-        // if(testFire.putOut()){
-        //     std::cout << "Tile put out";
-        // }
-        // if(testFire.destroyTile()){
-        //     std::cout << "Tile destroyed";
-        // }
-        // game::window.render(testFire);
+        game::update();
 
-        //game::window.drawNormalText();
-        //SDL_RenderCopy(game::window.getRenderer(), text, NULL, &textRect);
-        
         game::window.display();
 
+        
+
+        if(!strcmp(game::mode, "GAME")){
+            if(game::level->checkLevelFinished()){
+                game::addPlayerScore();
+                game::difficulty++;
+                delete game::level;
+                game::level = new Level();
+            }
+            if(game::level->checkGameEnd()){
+                //strcpy(game::mode, "MENU")";
+                game::finishGame();
+                
+                std::cout << "END OF GAME!!!" << std::endl;
+            }
+            // if(game::gameRunning = false){
+            //     fileSys::saveScore(Score(game::playerName, game::playerScore));
+            //     strcpy(game::mode, "MENU");
+            //     remove(fileSys::LVL_FILE_PATH);
+            // }
+        }
+        
+        
         //delay
         game::timer.capFrames();
+        
+   
+        
+        
+        
+        
 
         
-        if(game::level->checkLevelFinished()){
-            delete game::level;
-            game::level = new Level();
-        }
-
-        if(game::level->checkGameEnd()){
-            game::gameRunning= false;
-        }
     }
 
  
     game::window.cleanUp();
-
-    delete game::level;
+    if(game::level != nullptr){
+        delete game::level;
+    }
     game::level = nullptr;
     //delete vil;
     //vil = nullptr;
@@ -129,3 +124,4 @@ int main(int argc, char *args[]){
 
     return 0;
 }
+

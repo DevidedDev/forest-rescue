@@ -20,6 +20,7 @@ private:
     
 public:
     Timer();
+    Timer(const Timer& p_timer);
     void setStart();
     void setEnd();
     
@@ -37,6 +38,7 @@ public:
 
     void setDT();
     float getDT();
-    
+    int getElapsed(); //get time from start to current time
 
 };
+

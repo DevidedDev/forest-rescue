@@ -25,6 +25,7 @@ struct Dimension{
     Dimension(int p_w, int p_h);
 };
 
-
-
-
+namespace math{
+    
+    bool isInBounds(SDL_Rect p_rect, Vector2f p_pos2);
+}

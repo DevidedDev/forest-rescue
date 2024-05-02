@@ -7,7 +7,7 @@ Being::Being(Vector2f p_pos, SDL_Texture* p_tex, float p_maxHp)
 wanderInterval(0),
 direction("IDLE")
 {
-    lastUpdate = timer.getCurent();
+    lastUpdate =timer.getCurent();
 
     maxHp = p_maxHp;
     curHp = maxHp;
@@ -17,6 +17,10 @@ direction("IDLE")
     velocity.x = 0.0f;
     velocity.y = 0.0f;
 
+}
+
+Being::Being(){
+    
 }
 
 void Being::setVelocityX(int p_vel)
@@ -55,22 +59,22 @@ void Being::updatePos()
     if((!(pos.x <= 0  && velocity.x < 0))
         &&
         (!(pos.x+dimension.w >= game::lvlDimension.w && velocity.x > 0))
-    ) pos.x += velocity.x * speed * game::timer.getDT();
+    ) pos.x += velocity.x * speed * timer.getDT();
    if((!(pos.y <= 0  && velocity.y < 0))
         &&
         (!(pos.y+dimension.h >= game::lvlDimension.h && velocity.y > 0))
-    ) pos.y += velocity.y * speed * game::timer.getDT();
+    ) pos.y += velocity.y * speed * timer.getDT();
 }
 
 void Being::updateFrame()
 {
     timer.setCurent(game::timer);
     timer.setDT();
-    int framesToUpdate = floor(timer.getDT() / (1.0f / game::animatedFPS));
+    int framesToUpdate = floor(timer.getDT() / (1.0f / game::animatedFPS)); //NEEDS FIXING
     if (framesToUpdate > 0) {
         currentFrame.x += framesToUpdate;
         
-        timer.setLastUpdate();
+        timer.setLastUpdate(); //!NEEDS FIXING
         if(direction=="IDLE"){
             currentFrame.y = 0;
             currentFrame.x %= 3;
@@ -155,9 +159,7 @@ bool Being::detectCollision(Entity& p_entity){
     )
     return true;
     
-    // else{
-    //     //std::cout << "No collission" << std::endl;
-    // }
+    
 }
 
 void Being::takeDamage(){
@@ -165,7 +167,6 @@ void Being::takeDamage(){
 
 
 void Being::wander(){
-    //std:: cout << game::timer.getCurent() - lastUpdate << std::endl; 
     if( (timer.getCurent() - lastUpdate )> wanderInterval)
 
     {
@@ -213,4 +214,9 @@ if(
 
     )
     return true;
+}
+
+void Being::setPos(Vector2f p_pos){
+    pos = p_pos;
+    
 }
